@@ -9,10 +9,7 @@
 
     # Install dependencies
     $ composer install
-
-    # Open with your text editor
-    $ code .
-    ```
+   
 1. **.ENV**
 
     Rename or copy the `.env.example` file to `.env`
