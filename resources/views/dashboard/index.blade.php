@@ -173,7 +173,7 @@
         </div>
     </div>
     <!-- Example Charts for Dashboard Demo -->
-      <div class="row">
+      <div class="row justify-content-center">
         <div class="col-xl-6 mb-4">
             <div class="card card-header-actions h-100">
                 <div class="card-header">
