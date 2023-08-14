@@ -72,7 +72,7 @@
                                 <label class="control-label col-sm-3" for="search">Search:</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <input type="text" id="search" class="form-control me-1" name="search" placeholder="Search autorepairproduct" value="{{ request('search') }}">
+                                        <input type="text" id="search" class="form-control me-1" name="search" placeholder="Search Product" value="{{ request('search') }}">
                                         <div class="input-group-append">
                                             <button type="submit" class="input-group-text bg-primary"><i class="fa-solid fa-magnifying-glass font-size-20 text-white"></i></button>
                                         </div>
