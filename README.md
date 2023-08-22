@@ -24,7 +24,7 @@
 
 1. **Seed Database**
     ```bash
-    $ php artisan:migrate:fresh --seed
+    $ php artisan:migrate --seed
     ```
 1. **Create Storage Link**
 
