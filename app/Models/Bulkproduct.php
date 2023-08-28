@@ -45,6 +45,8 @@ class Bulkproduct extends Model
         'bulkproduct_remark',
         'bulkproduct_image',
         'bulkproduct_code',
+        'bulkproduct_status',
+
     ];
 
     public $sortable = [
@@ -80,6 +82,8 @@ class Bulkproduct extends Model
         'bulkproduct_enddate',
         'bulkproduct_price',
         'bulkproduct_remark',
+        'bulkproduct_status',
+
     ];
 
     protected $guarded = [
