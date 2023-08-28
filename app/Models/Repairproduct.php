@@ -63,6 +63,8 @@ class Repairproduct extends Model
             'repairproduct_remark',
             'repairproduct_image',
             'repairproduct_code',
+            'repairproduct_status',
+
     ];
 
     public $sortable = [
@@ -116,6 +118,8 @@ class Repairproduct extends Model
             'repairproduct_enddate',
             'repairproduct_price',
             'repairproduct_remark',
+            'repairproduct_status',
+
     ];
 
     protected $guarded = [
