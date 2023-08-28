@@ -12,6 +12,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Support\Facades\View;
 
 class AutorepairproductController extends Controller
 {
@@ -61,6 +64,7 @@ class AutorepairproductController extends Controller
 
         $rules = [
             'autorepairproduct_image' => 'image|file|max:2048',
+            'autorepairproduct_status' => 'nullable|string',
             'autorepairproduct_assetID' => 'nullable|string',
             'autorepairproduct_newassetID' => 'nullable|string',
             'autorepairproduct_autobrand' => 'nullable|string',
@@ -173,6 +177,23 @@ class AutorepairproductController extends Controller
             'barcode' => $barcode,
         ]);
     }
+    public function generatePdf($id)
+    {
+        $product = Autorepairproduct::find($id);
+
+        $pdfOptions = new Options();
+        $pdfOptions->set('isHtml5ParserEnabled', true);
+        $pdfOptions->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($pdfOptions);
+        $html = view('dashboard.body.main')->render(); // Render the entire content
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        return $dompdf->stream('autorepairproduct_show.pdf');
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -192,6 +213,7 @@ class AutorepairproductController extends Controller
     {
         $rules = [
             'autorepairproduct_image' => 'image|file|max:2048',
+            'autorepairproduct_status' => 'nullable|string',
             'autorepairproduct_assetID' => 'nullable|string',
             'autorepairproduct_newassetID' => 'nullable|string',
             'autorepairproduct_autobrand' => 'nullable|string',
@@ -360,7 +382,7 @@ class AutorepairproductController extends Controller
             $row_limit    = $sheet->getHighestDataRow();
             $column_limit = $sheet->getHighestDataColumn();
             $row_range    = range( 2, $row_limit );
-            $column_range = range( 'AI', $column_limit );
+            $column_range = range( 'AJ', $column_limit );
             $startcount = 2;
             $data = array();
             foreach ( $row_range as $row ) {
@@ -398,6 +420,8 @@ class AutorepairproductController extends Controller
                     'autorepairproduct_remark' =>$sheet->getCell( 'AE' . $row )->getValue(),
                     'autorepairproduct_image' =>$sheet->getCell( 'AF' . $row )->getValue(),
                     'autorepairproduct_code' =>$sheet->getCell( 'AG' . $row )->getValue(),
+                    'autorepairproduct_status' =>$sheet->getCell( 'AH' . $row )->getValue(),
+                
                 ];
                 $startcount++;
             }
@@ -451,6 +475,8 @@ class AutorepairproductController extends Controller
             'REMARK',
             'Product Image',
             'Product code',
+            'Status',
+
         );
 
         foreach($autorepairproducts as $autorepairproduct)
@@ -489,6 +515,8 @@ class AutorepairproductController extends Controller
                 'REMARK' => $autorepairproduct->autorepairproduct_remark,
                 'autorepairproduct Image' => $autorepairproduct->autorepairproduct_image,
                 'autorepairproduct Code' => $autorepairproduct->autorepairproduct_code,
+                'Status' => $autorepairproduct->autorepairproduct_status,
+                
             );
         }
 
