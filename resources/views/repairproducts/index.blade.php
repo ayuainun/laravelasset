@@ -9,7 +9,7 @@
                 <div class="col-auto my-4">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
-                        Valve List
+                        Valve Repair List
                     </h1>
                 </div>
                 <div class="col-auto my-4">
@@ -92,16 +92,17 @@
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Image</th>
-                                    <th scope="col">@sortablelink('repairproduct_assetID', 'Old ID')</th>
+                                    <th scope="col">@sortablelink('repairproduct_status', 'Status')</th>
+                                    {{-- <th scope="col">@sortablelink('repairproduct_assetID', 'Old ID')</th> --}}
                                     <th scope="col">@sortablelink('repairproduct_newassetID', 'Asset ID')</th>
-                                    <th scope="col">@sortablelink('repairproduct_equip', 'Equipment')</th>
+                                    {{-- <th scope="col">@sortablelink('repairproduct_equip', 'Equipment')</th> --}}
                                     <th scope="col">@sortablelink('repairproduct_unit', 'Valve Type')</th>
                                     <th scope="col">@sortablelink('repairproduct_end', 'End Connection')</th>
                                     <th scope="col">@sortablelink('repairproduct_size', 'Valve Size (Inch)')</th>
                                     <th scope="col">@sortablelink('repairproduct_rating', 'Valve Rating')</th>
                                     <th scope="col">@sortablelink('repairproduct_brand', 'Valve Brand')</th>
                                     <th scope="col">@sortablelink('repairproduct_valvemodel', 'Valve Model')</th>
-                                    <th scope="col">@sortablelink('repairproduct_serial', 'Serial Number')</th>
+                                    {{-- <th scope="col">@sortablelink('repairproduct_serial', 'Serial Number')</th>
                                     <th scope="col">@sortablelink('repairproduct_condi', 'Valve Condition')</th>
                                     <th scope="col">@sortablelink('repairproduct_actbrand', 'Actuator Brand')</th>
                                     <th scope="col">@sortablelink('repairproduct_acttype', 'Actuator Type')</th>
@@ -125,22 +126,22 @@
                                     <th scope="col">@sortablelink('repairproduct_dateout', 'Date Out')</th>
                                     <th scope="col">@sortablelink('repairproduct_dateoffshore', 'Date to offshore')</th>
                                     <th scope="col">@sortablelink('repairproduct_tfoffshore', 'Material transfer to offshore')</th>
-                                    <th scope="col">@sortablelink('repairproduct_curloc', 'Current Location')</th>
+                                    <th scope="col">@sortablelink('repairproduct_curloc', 'Current Location')</th> --}}
                                     <th scope="col">@sortablelink('repairproduct_stockin', 'Stock In')</th>
                                     <th scope="col">@sortablelink('repairproduct_docin', 'Dok Stock In')</th>
                                     <th scope="col">@sortablelink('repairproduct_stockout', 'Stock Out')</th>
                                     <th scope="col">@sortablelink('repairproduct_docout', 'Dok Stock Out')</th>
                                     <th scope="col">@sortablelink('repairproduct_stockqty', 'Stock Quantity')</th>
-                                    <th scope="col">@sortablelink('repairproduct_uom', 'UOM')</th>
+                                    {{-- <th scope="col">@sortablelink('repairproduct_uom', 'UOM')</th>
                                     <th scope="col">@sortablelink('repairproduct_targetpdn', 'TARGET PDN')</th>
                                     <th scope="col">@sortablelink('repairproduct_csrelease', 'CS Release')</th>
                                     <th scope="col">@sortablelink('repairproduct_csnumber', 'CS Number')</th>
-                                    <th scope="col">@sortablelink('repairproduct_cenumber', 'CE Number')</th>
+                                    <th scope="col">@sortablelink('repairproduct_cenumber', 'CE Number')</th> --}}
                                     <th scope="col">@sortablelink('repairproduct_ronumber', 'RO Number')</th>
                                     <th scope="col">@sortablelink('repairproduct_startdate', 'Start Date')</th>
-                                    <th scope="col">@sortablelink('repairproduct_enddate', 'End Date')</th>
+                                    {{-- <th scope="col">@sortablelink('repairproduct_enddate', 'End Date')</th>
                                     <th scope="col">@sortablelink('repairproduct_price', 'Price Repair')</th>
-                                    <th scope="col">@sortablelink('repairproduct_remark', 'REMARK')</th>
+                                    <th scope="col">@sortablelink('repairproduct_remark', 'REMARK')</th> --}}
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -153,16 +154,43 @@
                                             <img class="img-fluid" src="{{ $repairproduct->repairproduct_image ? asset($repairproduct->repairproduct_image) : asset('assets/img/products/default.webp') }}">
                                         </div>
                                     </td>
-                                    <td>{{ $repairproduct->repairproduct_assetID }}</td>
+                                    <td>
+                                        <div class="status-box
+                                          @if($repairproduct->repairproduct_status == 'Incoming')
+                                            bg-success
+                                          @elseif($repairproduct->repairproduct_status == 'Outgoing')
+                                            bg-danger
+                                          @else
+                                            bg-info
+                                          @endif">
+                                          <span class="status-text
+                                            @if($repairproduct->repairproduct_status == 'Incoming')
+                                              text-white
+                                            @elseif($repairproduct->repairproduct_status == 'Outgoing')
+                                              text-white
+                                            @else($repairproduct->repairproduct_status == 'Workshop')
+                                              text-white
+                                            @endif">
+                                            @if($repairproduct->repairproduct_status == 'Incoming')
+                                              Incoming
+                                            @elseif($repairproduct->repairproduct_status == 'Outgoing')
+                                              Outgoing
+                                            @else
+                                              Workshop
+                                            @endif
+                                          </span>
+                                        </div>
+                                      </td>                        
+                                    {{-- <td>{{ $repairproduct->repairproduct_assetID }}</td> --}}
                                     <td>{{ $repairproduct->repairproduct_newassetID }}</td>
-                                    <td>{{ $repairproduct->repairproduct_equip }}</td>
+                                    {{-- <td>{{ $repairproduct->repairproduct_equip }}</td> --}}
                                     <td>{{ $repairproduct->repairproduct_unit }}</td>
                                     <td>{{ $repairproduct->repairproduct_end }}</td>
                                     <td>{{ $repairproduct->repairproduct_size }}</td>
                                     <td>{{ $repairproduct->repairproduct_rating }}</td>
                                     <td>{{ $repairproduct->repairproduct_brand }}</td>
                                     <td>{{ $repairproduct->repairproduct_valvemodel }}</td>
-                                    <td>{{ $repairproduct->repairproduct_serial }}</td>
+                                    {{-- <td>{{ $repairproduct->repairproduct_serial }}</td>
                                     <td>{{ $repairproduct->repairproduct_condi }}</td>
                                     <td>{{ $repairproduct->repairproduct_actbrand }}</td>
                                     <td>{{ $repairproduct->repairproduct_acttype }}</td>
@@ -186,7 +214,7 @@
                                     <td>{{ $repairproduct->repairproduct_dateout }}</td>
                                     <td>{{ $repairproduct->repairproduct_dateoffshore }}</td>
                                     <td>{{ $repairproduct->repairproduct_tfoffshore }}</td>
-                                    <td>{{ $repairproduct->repairproduct_curloc }}</td>
+                                    <td>{{ $repairproduct->repairproduct_curloc }}</td> --}}
                                     <td>{{ $repairproduct->repairproduct_stockin }}</td>
                                     <td>
                                         @if($repairproduct->repairproduct_docin)
@@ -204,16 +232,16 @@
                                         @endif
                                     </td>
                                     <td>{{ $repairproduct->repairproduct_stockqty }}</td>
-                                    <td>{{ $repairproduct->repairproduct_uom }}</td>
+                                    {{-- <td>{{ $repairproduct->repairproduct_uom }}</td>
                                     <td>{{ $repairproduct->repairproduct_targetpdn }}</td>
                                     <td>{{ $repairproduct->repairproduct_csrelease }}</td>
-                                    <td>{{ $repairproduct->repairproduct_csnumber }}</td>
+                                    <td>{{ $repairproduct->repairproduct_csnumber }}</td> --}}
                                     <td>{{ $repairproduct->repairproduct_cenumber }}</td>
                                     <td>{{ $repairproduct->repairproduct_ronumber }}</td>
-                                    <td>{{ $repairproduct->repairproduct_startdate }}</td>
+                                    {{-- <td>{{ $repairproduct->repairproduct_startdate }}</td>
                                     <td>{{ $repairproduct->repairproduct_enddate }}</td>
                                     <td>{{ $repairproduct->repairproduct_price }}</td>
-                                    <td>{{ $repairproduct->repairproduct_remark }}</td>
+                                    <td>{{ $repairproduct->repairproduct_remark }}</td> --}}
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('repairproducts.show', $repairproduct->id) }}" class="btn btn-outline-success btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
