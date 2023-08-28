@@ -297,7 +297,7 @@
                             </div>               
                             <!-- Form Group (stockIn) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="insrepairproduct_stockin">Stock In<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="insrepairproduct_stockin">Stock In</label>
                                 <input class="form-control form-control-solid @error('insrepairproduct_stockin') is-invalid @enderror" id="insrepairproduct_stockin" name="insrepairproduct_stockin" type="text" placeholder="" value="{{ old('insrepairproduct_stockin', $insrepairproduct->insrepairproduct_stockin) }}" autocomplete="off"/>
                                 @error('insrepairproduct_stockin')
                                 <div class="invalid-feedback">
@@ -331,7 +331,7 @@
                             </div> 
                             <!-- Form Group (stock Quality (in-out) ) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="insrepairproduct_stockqty">Stock Quality<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="insrepairproduct_stockqty">Stock Quality</label>
                                 <input class="form-control form-control-solid @error('insrepairproduct_stockqty') is-invalid @enderror" id="insrepairproduct_stockqty" name="insrepairproduct_stockqty" type="text" placeholder="" value="{{ old('insrepairproduct_stockqty', $insrepairproduct->insrepairproduct_stockqty) }}" autocomplete="off"/>
                                 @error('insrepairproduct_stockqty')
                                 <div class="invalid-feedback">
@@ -485,9 +485,27 @@
                                     var initialValue = document.getElementById('insrepairproduct_price').value;
                                     document.getElementById('insrepairproduct_price').value = formatRupiah(initialValue);
                                 </script> 
-                            </div>    
+                            </div>   
+                             <!-- Form Group (status) -->
+                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="insrepairproduct_status" >Status</label>
+                                    <select class="form-control form-control-solid @error('insrepairproduct_status') is-invalid @enderror" id="insrepairproduct_status" name="insrepairproduct_status" status="text" placeholder="" value="{{ old('insrepairproduct_status', $insrepairproduct->insrepairproduct_status) }}" autocomplete="off"/>
+                                    <option selected="" disabled="">Select a status:</option>
+                                    <option value="" {{ old('insrepairproduct_status') === null ? 'selected' : '' }}>N/A</option>
+                                        <option>Incoming</option>
+                                        <option>Outgoing</option>
+                                        <option>At Workshop</option>
+                                    </select>
+                                    @error('insrepairproduct_status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>   
                             <!-- Form Group (insrepairproduct Remark) -->
-                            <div class="col-md-6">
+                            <div class="col-md-15">
                                 <label class="small mb-1" for="insrepairproduct_remark">Remark</label>
                                 <input class="form-control form-control-solid @error('insrepairproduct_remark') is-invalid @enderror" id="insrepairproduct_remark" name="insrepairproduct_remark" type="text" placeholder="" value="{{ old('insrepairproduct_remark', $insrepairproduct->insrepairproduct_remark) }}" autocomplete="off"/>
                                 @error('insrepairproduct_remark')
