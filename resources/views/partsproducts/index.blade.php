@@ -92,12 +92,13 @@
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Image</th>
-                                    <th scope="col">@sortablelink('partsproduct_assetID', 'Old ID')</th>
+                                    <th scope="col">@sortablelink('partsproduct_status', 'Status')</th>
+                                    {{-- <th scope="col">@sortablelink('partsproduct_assetID', 'Old ID')</th> --}}
                                     <th scope="col">@sortablelink('partsproduct_newassetID', 'New ID')</th>
                                     <th scope="col">@sortablelink('partsproduct_desc', 'Description')</th>
                                     <th scope="col">@sortablelink('partsproduct_partnumber', 'Part Number')</th>
                                     {{-- <th scope="col">@sortablelink('partsproduct_serial', 'Serial Number')</th> --}}
-                                    <th scope="col">@sortablelink('partsproduct_transfer', 'Material Transfer')</th>
+                                    {{-- <th scope="col">@sortablelink('partsproduct_transfer', 'Material Transfer')</th>
                                     <th scope="col">@sortablelink('partsproduct_reser', 'Reservation Number')</th>
                                     <th scope="col">@sortablelink('partsproduct_origin', 'Ex Station')</th>
                                     <th scope="col">@sortablelink('partsproduct_sdvin', 'SDV In')</th>
@@ -110,21 +111,21 @@
                                     <th scope="col">@sortablelink('partsproduct_dateoffshore', 'Date to offshore')</th>
                                     <th scope="col">@sortablelink('partsproduct_tfoffshore', 'Material transfer to offshore')</th>
                                     <th scope="col">@sortablelink('partsproduct_curloc', 'Current Location')</th>
-                                    <th scope="col">@sortablelink('partsproduct_targetpdn', 'Target PDN')</th>
+                                    <th scope="col">@sortablelink('partsproduct_targetpdn', 'Target PDN')</th> --}}
                                     <th scope="col">@sortablelink('partsproduct_stockin', 'Stock In')</th>
                                     <th scope="col">@sortablelink('partsproduct_docin', 'Dok Stock In')</th>
                                     <th scope="col">@sortablelink('partsproduct_stockout', 'Stock Out')</th>
                                     <th scope="col">@sortablelink('partsproduct_docout', 'Dok Stock Out')</th>
                                     <th scope="col">@sortablelink('partsproduct_stockqty', 'Stock Quantity')</th>
-                                    <th scope="col">@sortablelink('partsproduct_uom', 'UOM')</th>
+                                    {{-- <th scope="col">@sortablelink('partsproduct_uom', 'UOM')</th>
                                     <th scope="col">@sortablelink('partsproduct_csrelease', 'CS Release')</th>
-                                    <th scope="col">@sortablelink('partsproduct_csnumber', 'CS Number')</th>
+                                    <th scope="col">@sortablelink('partsproduct_csnumber', 'CS Number')</th> --}}
                                     <th scope="col">@sortablelink('partsproduct_cenumber', 'CE Number')</th>
                                     <th scope="col">@sortablelink('partsproduct_ronumber', 'RO Number')</th>
-                                    <th scope="col">@sortablelink('partsproduct_startdate', 'Start Date')</th>
+                                    {{-- <th scope="col">@sortablelink('partsproduct_startdate', 'Start Date')</th>
                                     <th scope="col">@sortablelink('partsproduct_enddate', 'End Date')</th>
                                     <th scope="col">@sortablelink('partsproduct_price', 'Price Repair')</th>
-                                    <th scope="col">@sortablelink('partsproduct_remark', 'REMARK')</th>
+                                    <th scope="col">@sortablelink('partsproduct_remark', 'REMARK')</th> --}}
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -137,12 +138,39 @@
                                             <img class="img-fluid" src="{{ $partsproduct->partsproduct_image ? asset($partsproduct->partsproduct_image) : asset('assets/img/products/default.webp') }}">
                                         </div>
                                     </td>
-                                    <td>{{ $partsproduct->partsproduct_assetID }}</td>
+                                    <td>
+                                        <div class="status-box
+                                          @if($partsproduct->partsproduct_status == 'Incoming')
+                                            bg-success
+                                          @elseif($partsproduct->partsproduct_status == 'Outgoing')
+                                            bg-danger
+                                          @else
+                                            bg-info
+                                          @endif">
+                                          <span class="status-text
+                                            @if($partsproduct->partsproduct_status == 'Incoming')
+                                              text-white
+                                            @elseif($partsproduct->partsproduct_status == 'Outgoing')
+                                              text-white
+                                            @else($partsproduct->partsproduct_status == 'Workshop')
+                                              text-white
+                                            @endif">
+                                            @if($partsproduct->partsproduct_status == 'Incoming')
+                                              Incoming
+                                            @elseif($partsproduct->partsproduct_status == 'Outgoing')
+                                              Outgoing
+                                            @else
+                                              Workshop
+                                            @endif
+                                          </span>
+                                        </div>
+                                      </td>              
+                                    {{-- <td>{{ $partsproduct->partsproduct_assetID }}</td> --}}
                                     <td>{{ $partsproduct->partsproduct_newassetID }}</td>
                                     <td>{{ $partsproduct->partsproduct_desc }}</td>
                                     <td>{{ $partsproduct->partsproduct_partnumber }}</td>
                                     {{-- <td>{{ $partsproduct->partsproduct_serial }}</td> --}}
-                                    <td>{{ $partsproduct->partsproduct_transfer }}</td>
+                                    {{-- <td>{{ $partsproduct->partsproduct_transfer }}</td>
                                     <td>{{ $partsproduct->partsproduct_reser }}</td>
                                     <td>{{ $partsproduct->partsproduct_origin }}</td>
                                     <td>{{ $partsproduct->partsproduct_sdvin }}</td>
@@ -155,7 +183,7 @@
                                     <td>{{ $partsproduct->partsproduct_dateoffshore }}</td>
                                     <td>{{ $partsproduct->partsproduct_tfoffshore }}</td>
                                     <td>{{ $partsproduct->partsproduct_curloc }}</td>
-                                    <td>{{ $partsproduct->partsproduct_targetpdn }}</td>
+                                    <td>{{ $partsproduct->partsproduct_targetpdn }}</td> --}}
                                     <td>{{ $partsproduct->partsproduct_stockin }}</td>
                                     <td>
                                         @if($partsproduct->partsproduct_docin)
@@ -174,15 +202,15 @@
                                     </td>
 
                                     <td>{{ $partsproduct->partsproduct_stockqty }}</td>
-                                    <td>{{ $partsproduct->partsproduct_uom }}</td>
+                                    {{-- <td>{{ $partsproduct->partsproduct_uom }}</td>
                                     <td>{{ $partsproduct->partsproduct_csrelease }}</td>
-                                    <td>{{ $partsproduct->partsproduct_csnumber }}</td>
+                                    <td>{{ $partsproduct->partsproduct_csnumber }}</td> --}}
                                     <td>{{ $partsproduct->partsproduct_cenumber }}</td>
                                     <td>{{ $partsproduct->partsproduct_ronumber }}</td>
-                                    <td>{{ $partsproduct->partsproduct_startdate }}</td>
+                                    {{-- <td>{{ $partsproduct->partsproduct_startdate }}</td>
                                     <td>{{ $partsproduct->partsproduct_enddate }}</td>
                                     <td>{{ $partsproduct->partsproduct_price }}</td>
-                                    <td>{{ $partsproduct->partsproduct_remark }}</td>
+                                    <td>{{ $partsproduct->partsproduct_remark }}</td> --}}
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('partsproducts.show', $partsproduct->id) }}" class="btn btn-outline-success btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
