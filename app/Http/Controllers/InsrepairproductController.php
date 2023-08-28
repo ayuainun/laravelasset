@@ -13,6 +13,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Support\Facades\View;
 
 class InsrepairproductController extends Controller
 {
@@ -62,6 +65,7 @@ class InsrepairproductController extends Controller
 
         $rules = [
             'insrepairproduct_image' => 'image|file|max:2048',
+            'insrepairproduct_status' => 'nullable|string',
             'insrepairproduct_assetID' => 'nullable|string',
             'insrepairproduct_newassetID' => 'nullable|string',
             'insrepairproduct_instype' => 'nullable|string',
@@ -173,6 +177,23 @@ class InsrepairproductController extends Controller
         ]);
     }
 
+        public function generatePdf($id)
+        {
+            $product = Insrepairproduct::find($id);
+
+            $pdfOptions = new Options();
+            $pdfOptions->set('isHtml5ParserEnabled', true);
+            $pdfOptions->set('isRemoteEnabled', true);
+
+            $dompdf = new Dompdf($pdfOptions);
+            $html = view('dashboard.body.main')->render(); // Render the entire content
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            return $dompdf->stream('insrepairproduct_show.pdf');
+        }
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -190,6 +211,7 @@ class InsrepairproductController extends Controller
     {
         $rules = [
             'insrepairproduct_image' => 'image|file|max:2048',
+            'insrepairproduct_status' => 'nullable|string',
             'insrepairproduct_assetID' => 'nullable|string',
             'insrepairproduct_newassetID' => 'nullable|string',
             'insrepairproduct_instype' => 'nullable|string',
@@ -357,7 +379,7 @@ class InsrepairproductController extends Controller
             $row_limit    = $sheet->getHighestDataRow();
             $column_limit = $sheet->getHighestDataColumn();
             $row_range    = range( 2, $row_limit );
-            $column_range = range( 'AJ', $column_limit );
+            $column_range = range( 'AK', $column_limit );
             $startcount = 2;
             $data = array();
             foreach ( $row_range as $row ) {
@@ -396,6 +418,8 @@ class InsrepairproductController extends Controller
                     'insrepairproduct_remark' =>$sheet->getCell( 'AF' . $row )->getValue(),
                     'insrepairproduct_image' =>$sheet->getCell( 'AG' . $row )->getValue(),
                     'insrepairproduct_code' =>$sheet->getCell( 'AH' . $row )->getValue(),
+                    'insrepairproduct_status' =>$sheet->getCell( 'AI' . $row )->getValue(),
+                    
                 ];
                 $startcount++;
             }
@@ -417,7 +441,7 @@ class InsrepairproductController extends Controller
 
         $insrepairproduct_array [] = array(
             'Old ID',
-            'Asset ID',
+            'New ID',
             'Instrument Type',
             'Instrument Brand',
             // 'Serial Number',
@@ -451,13 +475,15 @@ class InsrepairproductController extends Controller
             'REMARK',
             'Product Image',
             'Product code',
+            'Status',
+
         );
 
         foreach($insrepairproducts as $insrepairproduct)
         {
             $insrepairproduct_array[] = array(
                 'Old ID' => $insrepairproduct->insrepairproduct_assetID,
-                'Asset ID' => $insrepairproduct->insrepairproduct_newassetID,
+                'New ID' => $insrepairproduct->insrepairproduct_newassetID,
                 'Instrument Type' => $insrepairproduct->insrepairproduct_instype,
                 'Instrument Brand' => $insrepairproduct->insrepairproduct_insbrand,
                 // 'Serial Number' => $insrepairproduct->insrepairproduct_serial,
@@ -491,6 +517,8 @@ class InsrepairproductController extends Controller
                 'REMARK' => $insrepairproduct->insrepairproduct_remark,
                 'Product Image' => $insrepairproduct->insrepairproduct_image,
                 'Product Code' => $insrepairproduct->insrepairproduct_code,
+                'Status' => $insrepairproduct->insrepairproduct_status,
+                
             );
         }
 
