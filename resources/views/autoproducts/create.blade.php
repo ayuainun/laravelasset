@@ -87,7 +87,7 @@
                             <!-- Form Group (type of autoproduct brand) -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="small mb-1" for="autoproduct_brand">Automation Brand<span class="text-danger">*</span></label>
+                                    <label class="small mb-1" for="autoproduct_brand">Automation Brand</label>
                                     <select class="form-select form-control-solid @error('autoproduct_brand') is-invalid @enderror" id="autoproduct_brand" name="autoproduct_brand">
                                         <option selected="" disabled="">Select a brand:</option>
                                         <option value="" {{ old('autoproduct_brand') === null ? 'selected' : '' }}>N/A</option>
@@ -253,7 +253,7 @@
                             </div>
                             <!-- Form Group (stockIn) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="autoproduct_stockin">Stock In<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="autoproduct_stockin">Stock In</label>
                                 <input class="form-control form-control-solid @error('autoproduct_stockin') is-invalid @enderror" id="autoproduct_stockin" name="autoproduct_stockin" type="text" placeholder="" value="{{ old('autoproduct_stockin') }}" autocomplete="off" />
                                 @error('autoproduct_stockin')
                                 <div class="invalid-feedback">
@@ -287,7 +287,7 @@
                             </div>
                             <!-- Form Group (stock Quality (in-out) ) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="autoproduct_stockqty">Stock Quality<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="autoproduct_stockqty">Stock Quality</label>
                                 <input class="form-control form-control-solid @error('autoproduct_stockqty') is-invalid @enderror" id="autoproduct_stockqty" name="autoproduct_stockqty" type="text" placeholder="" value="{{ old('autoproduct_stockqty') }}" autocomplete="off" />
                                 @error('autoproduct_stockqty')
                                 <div class="invalid-feedback">
@@ -449,9 +449,27 @@
                                 
                                     // Panggil formatRupiah untuk mengubah format awal (jika ada)
                                     var initialValue = document.getElementById('autoproduct_price').value;
-                                    document.getElementById('product_price').value = formatRupiah(initialValue);
+                                    document.getElementById('autoproduct_price').value = formatRupiah(initialValue);
                                 </script>         
                             </div>
+                            <!-- Form Group (status) -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="autoproduct_status" >Status</label>
+                                    <select class="form-control form-control-solid @error('autoproduct_status') is-invalid @enderror" id="autoproduct_status" name="autoproduct_status" status="text" placeholder="" value="{{ old('autoproduct_status') }}" autocomplete="off"/>
+                                    <option selected="" disabled="">Select a status:</option>
+                                    <option value="" {{ old('autoproduct_status') === null ? 'selected' : '' }}>N/A</option>
+                                        <option>Incoming</option>
+                                        <option>Outgoing</option>
+                                        <option>At Workshop</option>
+                                    </select>
+                                    @error('autoproduct_status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>  
                             <!-- Form Group (autoproduct Remark) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="autoproduct_remark">Remark</label>
