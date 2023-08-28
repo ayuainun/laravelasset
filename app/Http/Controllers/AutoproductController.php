@@ -12,6 +12,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Support\Facades\View;
 
 class AutoproductController extends Controller
 {
@@ -61,6 +64,7 @@ class AutoproductController extends Controller
 
         $rules = [
             'autoproduct_image' => 'image|file|max:2048',
+            'autoproduct_status' => 'nullable|string',
             'autoproduct_assetID' => 'nullable|string',
             'autoproduct_newassetID' => 'nullable|string',
             'autoproduct_brand' => 'nullable|string',
@@ -187,6 +191,22 @@ class AutoproductController extends Controller
                 'barcode' => $barcode,
             ]);
         }
+        public function generatePdf($id)
+        {
+            $product = Autoproduct::find($id);
+
+            $pdfOptions = new Options();
+            $pdfOptions->set('isHtml5ParserEnabled', true);
+            $pdfOptions->set('isRemoteEnabled', true);
+
+            $dompdf = new Dompdf($pdfOptions);
+            $html = view('dashboard.body.main')->render(); // Render the entire content
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            return $dompdf->stream('autoproduct_show.pdf');
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -205,6 +225,7 @@ class AutoproductController extends Controller
     {
         $rules = [
             'autoproduct_image' => 'image|file|max:2048',
+            'autoproduct_status' => 'nullable|string',
             'autoproduct_assetID' => 'nullable|string',
             'autoproduct_newassetID' => 'nullable|string',
             'autoproduct_brand' => 'nullable|string',
@@ -371,7 +392,7 @@ class AutoproductController extends Controller
             $row_limit    = $sheet->getHighestDataRow();
             $column_limit = $sheet->getHighestDataColumn();
             $row_range    = range( 2, $row_limit );
-            $column_range = range( 'AI', $column_limit );
+            $column_range = range( 'AJ', $column_limit );
             $startcount = 2;
             $data = array();
             foreach ( $row_range as $row ) {
@@ -409,6 +430,8 @@ class AutoproductController extends Controller
                     'autoproduct_remark' =>$sheet->getCell( 'AE' . $row )->getValue(),
                     'autoproduct_image' =>$sheet->getCell( 'AF' . $row )->getValue(),
                     'autoproduct_code' =>$sheet->getCell( 'AG' . $row )->getValue(),
+                    'autoproduct_status' =>$sheet->getCell( 'AH' . $row )->getValue(),
+
                 ];
                 $startcount++;
             }
@@ -430,7 +453,7 @@ class AutoproductController extends Controller
 
         $autoproduct_array [] = array(
             'Old ID',
-            'Asset ID',
+            'New ID',
             'Automation Brand',
             'Date In',
             'Material Transfer',
@@ -462,13 +485,14 @@ class AutoproductController extends Controller
             'REMARK',
             'Product Image',
             'Product code',
+            'Status',
         );
 
         foreach($autoproducts as $autoproduct)
         {
             $autoproduct_array[] = array(
                 'Old ID' => $autoproduct->autoproduct_assetID,
-                'Asset ID' => $autoproduct->autoproduct_newassetID,
+                'New ID' => $autoproduct->autoproduct_newassetID,
                 'Automation Brand' => $autoproduct->autoproduct_brand,
                 'Date In' => $autoproduct->autoproduct_datein,
                 'Material Transfer' => $autoproduct->autoproduct_transfer,
@@ -498,8 +522,10 @@ class AutoproductController extends Controller
                 'End Date' => $autoproduct->autoproduct_enddate,
                 'Price Repair' => $autoproduct->autoproduct_price,
                 'REMARK' => $autoproduct->autoproduct_remark,
-                'autoproduct Image' => $autoproduct->autoproduct_image,
-                'autoproduct Code' => $autoproduct->autoproduct_code,
+                'Product Image' => $autoproduct->autoproduct_image,
+                'Product Code' => $autoproduct->autoproduct_code,
+                'Status' => $autoproduct->autoproduct_status,
+
             );
         }
 
