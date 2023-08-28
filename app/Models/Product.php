@@ -63,6 +63,7 @@ class Product extends Model
             'product_remark',
             'product_image',
             'product_code',
+            'product_status',
     ];
 
     public $sortable = [
@@ -116,75 +117,17 @@ class Product extends Model
             'product_enddate',
             'product_price',
             'product_remark',
-    ];
+            'product_status',
+
+     ];
 
     protected $guarded = [
         'id',
     ];
 
-    // protected $with = [
-    //     // 'unit',
-    //     'end',
-    //     'size',
-    //     'rating',
-    //     'valvebrand',
-    //     'condi',
-    //     'actbrand',
-    //     'acttype',
-    //     'actsize',
-    //     'fail',
-    //     'actcond',
-    //     'posbrand',
-    //     'posmodel',
-    //     'poscond',
-    //     'uom'
-    // ];
+    protected $with = [
 
-    // // public function unit(){
-    // //     return $this->belongsTo(Unit::class, 'unit_id');
-    // // }
-    // public function end(){
-    //     return $this->belongsTo(End::class, 'end_id');
-    // }
-    // public function size(){
-    //     return $this->belongsTo(Size::class, 'size_id');
-    // }
-    // public function rating(){
-    //     return $this->belongsTo(Rating::class, 'rating_id');
-    // }
-    // public function valvebrand(){
-    //     return $this->belongsTo(Valvebrand::class, 'brand_id');
-    // }
-    // public function condi(){
-    //     return $this->belongsTo(Condi::class, 'condi_id');
-    // }
-    // public function actbrand(){
-    //     return $this->belongsTo(Actbrand::class, 'actbrand_id');
-    // }
-    // public function acttype(){
-    //     return $this->belongsTo(Acttype::class, 'acttype_id');
-    // }
-    // public function actsize(){
-    //     return $this->belongsTo(Actsize::class, 'actsize_id');
-    // }
-    // public function fail(){
-    //     return $this->belongsTo(Fail::class, 'fail_id');
-    // }
-    // public function actcond(){
-    //     return $this->belongsTo(Actcond::class, 'actcond_id');
-    // }
-    // public function posbrand(){
-    //     return $this->belongsTo(Posbrand::class, 'posbrand_id');
-    // }
-    // public function posmodel(){
-    //     return $this->belongsTo(Posmodel::class, 'posmodel_id');
-    // }
-    // public function poscond(){
-    //     return $this->belongsTo(Poscond::class, 'poscond_id');
-    // }
-    // public function uom(){
-    //     return $this->belongsTo(Uom::class, 'uom_id');
-    // }
+    ];
 
     public function scopeFilter($query, array $filters)
     {
