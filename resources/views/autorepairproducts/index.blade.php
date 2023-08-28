@@ -9,7 +9,7 @@
                 <div class="col-auto my-4">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
-                        Automation List
+                        Automation Repair List
                     </h1>
                 </div>
                 <div class="col-auto my-4">
@@ -92,10 +92,11 @@
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Image</th>
-                                    <th scope="col">@sortablelink('autorepairproduct_assetID', 'Old ID')</th>
+                                    <th scope="col">@sortablelink('autorepairproduct_status', 'Status')</th>
+                                    {{-- <th scope="col">@sortablelink('autorepairproduct_assetID', 'Old ID')</th> --}}
                                     <th scope="col">@sortablelink('autorepairproduct_newassetID', 'Asset ID')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_autobrand', 'Automation Brand')</th>
-                                    <th scope="col">@sortablelink('autorepairproduct_datein', 'Date In')</th>
+                                    {{-- <th scope="col">@sortablelink('autorepairproduct_datein', 'Date In')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_transfer', 'Material Transfer')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_reser', 'Reservation Number')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_origin', 'Ex Station')</th>
@@ -107,22 +108,22 @@
                                     <th scope="col">@sortablelink('autorepairproduct_dateout', 'Date Out')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_dateoffshore', 'Date to offshore')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_tfoffshore', 'Material transfer to offshore')</th>
-                                    <th scope="col">@sortablelink('autorepairproduct_curloc', 'Current Location')</th>
+                                    <th scope="col">@sortablelink('autorepairproduct_curloc', 'Current Location')</th> --}}
                                     <th scope="col">@sortablelink('autorepairproduct_stockin', 'Stock In')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_docin', 'Dok Stock In')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_stockout', 'Stock Out')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_docout', 'Dok Stock Out')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_stockqty', 'Stock Quantity')</th>
-                                    <th scope="col">@sortablelink('autorepairproduct_uom', 'UOM')</th>
+                                    {{-- <th scope="col">@sortablelink('autorepairproduct_uom', 'UOM')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_targetpdn', 'Target PDN')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_csrelease', 'CS Release')</th>
-                                    <th scope="col">@sortablelink('autorepairproduct_csnumber', 'CS Number')</th>
+                                    <th scope="col">@sortablelink('autorepairproduct_csnumber', 'CS Number')</th> --}}
                                     <th scope="col">@sortablelink('autorepairproduct_cenumber', 'CE Number')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_ronumber', 'RO Number')</th>
-                                    <th scope="col">@sortablelink('autorepairproduct_startdate', 'Start Date')</th>
+                                    {{-- <th scope="col">@sortablelink('autorepairproduct_startdate', 'Start Date')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_enddate', 'End Date')</th>
                                     <th scope="col">@sortablelink('autorepairproduct_price', 'Price Repair')</th>
-                                    <th scope="col">@sortablelink('autorepairproduct_remark', 'REMARK')</th>
+                                    <th scope="col">@sortablelink('autorepairproduct_remark', 'REMARK')</th> --}}
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -135,10 +136,37 @@
                                             <img class="img-fluid" src="{{ $autorepairproduct->autorepairproduct_image ? asset($autorepairproduct->autorepairproduct_image) : asset('assets/img/products/default.webp') }}">
                                         </div>
                                     </td>
-                                    <td>{{ $autorepairproduct->autorepairproduct_assetID }}</td>
+                                    <td>
+                                        <div class="status-box
+                                          @if($autorepairproduct->autorepairproduct_status == 'Incoming')
+                                            bg-success
+                                          @elseif($autorepairproduct->autorepairproduct_status == 'Outgoing')
+                                            bg-danger
+                                          @else
+                                            bg-info
+                                          @endif">
+                                          <span class="status-text
+                                            @if($autorepairproduct->autorepairproduct_status == 'Incoming')
+                                              text-white
+                                            @elseif($autorepairproduct->autorepairproduct_status == 'Outgoing')
+                                              text-white
+                                            @else($autorepairproduct->autorepairproduct_status == 'Workshop')
+                                              text-white
+                                            @endif">
+                                            @if($autorepairproduct->autorepairproduct_status == 'Incoming')
+                                              Incoming
+                                            @elseif($autorepairproduct->autorepairproduct_status == 'Outgoing')
+                                              Outgoing
+                                            @else
+                                              Workshop
+                                            @endif
+                                          </span>
+                                        </div>
+                                      </td>        
+                                    {{-- <td>{{ $autorepairproduct->autorepairproduct_assetID }}</td> --}}
                                     <td>{{ $autorepairproduct->autorepairproduct_newassetID }}</td>
                                     <td>{{ $autorepairproduct->autorepairproduct_autobrand }}</td>
-                                    <td>{{ $autorepairproduct->autorepairproduct_datein }}</td>
+                                    {{-- <td>{{ $autorepairproduct->autorepairproduct_datein }}</td>
                                     <td>{{ $autorepairproduct->autorepairproduct_transfer }}</td>
                                     <td>{{ $autorepairproduct->autorepairproduct_reser }}</td>
                                     <td>{{ $autorepairproduct->autorepairproduct_origin }}</td>
@@ -150,7 +178,7 @@
                                     <td>{{ $autorepairproduct->autorepairproduct_dateout }}</td>
                                     <td>{{ $autorepairproduct->autorepairproduct_dateoffshore }}</td>
                                     <td>{{ $autorepairproduct->autorepairproduct_tfoffshore }}</td>
-                                    <td>{{ $autorepairproduct->autorepairproduct_curloc }}</td>
+                                    <td>{{ $autorepairproduct->autorepairproduct_curloc }}</td> --}}
                                     <td>{{ $autorepairproduct->autorepairproduct_stockin }}</td>
                                     <td>
                                         @if($autorepairproduct->autorepairproduct_docin)
@@ -169,16 +197,16 @@
                                     </td>
 
                                     <td>{{ $autorepairproduct->autorepairproduct_stockqty }}</td>
-                                    <td>{{ $autorepairproduct->autorepairproduct_uom }}</td>
+                                    {{-- <td>{{ $autorepairproduct->autorepairproduct_uom }}</td>
                                     <td>{{ $autorepairproduct->autorepairproduct_targetpdn }}</td>
                                     <td>{{ $autorepairproduct->autorepairproduct_csrelease }}</td>
-                                    <td>{{ $autorepairproduct->autorepairproduct_csnumber }}</td>
+                                    <td>{{ $autorepairproduct->autorepairproduct_csnumber }}</td> --}}
                                     <td>{{ $autorepairproduct->autorepairproduct_cenumber }}</td>
                                     <td>{{ $autorepairproduct->autorepairproduct_ronumber }}</td>
-                                    <td>{{ $autorepairproduct->autorepairproduct_startdate }}</td>
+                                    {{-- <td>{{ $autorepairproduct->autorepairproduct_startdate }}</td>
                                     <td>{{ $autorepairproduct->autorepairproduct_enddate }}</td>
                                     <td>{{ $autorepairproduct->autorepairproduct_price }}</td>
-                                    <td>{{ $autorepairproduct->autorepairproduct_remark }}</td>
+                                    <td>{{ $autorepairproduct->autorepairproduct_remark }}</td> --}}
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('autorepairproducts.show', $autorepairproduct->id) }}" class="btn btn-outline-success btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
