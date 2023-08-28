@@ -13,12 +13,18 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Barryvdh\DomPDF\Facade as PDF;
+// use PDF;
+// use Dompdf\Dompdf;
+// use Dompdf\Options;
+// use Illuminate\Support\Facades\View;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $row = (int) request('row', 10);
@@ -62,6 +68,7 @@ class ProductController extends Controller
 
         $rules = [
             'product_image' => 'image|file|max:2048',
+            'product_status' => 'nullable|string',
             'product_assetID' => 'nullable|string',
             'product_newassetID' => 'nullable|string',
             'product_equip' =>'nullable|string',
@@ -203,6 +210,44 @@ class ProductController extends Controller
                 'barcode' => $barcode,
             ]);
         }
+        
+        // public function downloadpdf()
+        // {
+        //     $product = Product::limit(100)->get();
+        //     $pdf = PDF::loadView('products.show-pdf',compact('product'));
+        //     $pdf->setPaper('A4', 'potrait');
+        //     return $pdf->stream('show.pdf');
+            
+        // }
+        public function download($id)
+        {
+            $product = Product::findOrFail($id); // Ganti dengan model yang sesuai
+            // dd($product);
+
+            $pdf = PDF::loadView('products.show-pdf', compact('product')); // Ganti dengan view yang sesuai
+
+            $filename = 'product_' . $id . '.pdf';
+
+            return $pdf->download($filename);
+        }
+
+
+    // public function generatePdf($id)
+    // {
+    //     $product = Product::find($id);
+
+    //     $pdfOptions = new Options();
+    //     $pdfOptions->set('isHtml5ParserEnabled', true);
+    //     $pdfOptions->set('isRemoteEnabled', true);
+
+    //     $dompdf = new Dompdf($pdfOptions);
+    //     $html = view('products.show', compact('product'))->render();
+    //     $dompdf->loadHtml($html);
+    //     $dompdf->setPaper('A4', 'portrait');
+    //     $dompdf->render();
+
+    //     return $dompdf->stream('product_details.pdf');
+    // }
 
 
     /**
@@ -237,6 +282,7 @@ class ProductController extends Controller
     {
         $rules = [
             'product_image' => 'image|file|max:2048',
+            'product_status' => 'nullable|string',
             'product_assetID' => 'nullable|string',
             'product_newassetID' => 'nullable|string',
             'product_equip' =>'nullable|string',
@@ -422,7 +468,7 @@ class ProductController extends Controller
             $row_limit    = $sheet->getHighestDataRow();
             $column_limit = $sheet->getHighestDataColumn();
             $row_range    = range( 2, $row_limit );
-            $column_range = range( 'BA', $column_limit );
+            $column_range = range( 'BB', $column_limit );
             $startcount = 2;
             $data = array();
             foreach ( $row_range as $row ) {
@@ -476,8 +522,10 @@ class ProductController extends Controller
                     'product_enddate' =>$sheet->getCell( 'AU' . $row )->getValue(),
                     'product_price' =>$sheet->getCell( 'AV' . $row )->getValue(),
                     'product_remark' =>$sheet->getCell( 'AW' . $row )->getValue(),
-                    'product_code' =>$sheet->getCell( 'AY' . $row )->getValue(),
-                    'product_image' =>$sheet->getCell( 'AX' . $row )->getValue(),
+                    'product_code' =>$sheet->getCell( 'AX' . $row )->getValue(),
+                    'product_image' =>$sheet->getCell( 'AY' . $row )->getValue(),
+                    'product_status' =>$sheet->getCell( 'AZ' . $row )->getValue(),
+
                     
                 ];
                 $startcount++;
@@ -550,6 +598,8 @@ class ProductController extends Controller
             'REMARK',
             'Product code',
             'Product Image',
+            'Status',
+            
             
         );
 
@@ -607,6 +657,7 @@ class ProductController extends Controller
                 'REMARK' => $product->product_remark,
                 'Product Code' => $product->product_code,
                 'Product Image' => $product->product_image,
+                'Status' => $product->product_status,
             );
         }
 
@@ -637,4 +688,5 @@ class ProductController extends Controller
         }
     }
 
+    
 }
