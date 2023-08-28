@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('partsproducts', function (Blueprint $table) {
             $table->id();
+            $table->string('partsproduct_status')->nullable();
             $table->string('partsproduct_assetID')->nullable();
             $table->string('partsproduct_newassetID')->nullable();
             $table->string('partsproduct_desc')->nullable();
