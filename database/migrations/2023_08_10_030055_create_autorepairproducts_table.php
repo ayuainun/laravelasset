@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('autorepairproducts', function (Blueprint $table) {
             $table->id();
+            $table->string('autorepairproduct_status')->nullable();
             $table->string('autorepairproduct_assetID')->nullable();
             $table->string('autorepairproduct_newassetID')->nullable();
             $table->string('autorepairproduct_autobrand')->nullable();
