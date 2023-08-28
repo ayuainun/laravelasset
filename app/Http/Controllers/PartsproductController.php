@@ -13,6 +13,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Support\Facades\View;
 
 class PartsproductController extends Controller
 {
@@ -62,6 +65,7 @@ class PartsproductController extends Controller
 
         $rules = [
             'partsproduct_image' => 'image|file|max:2048',
+            'partsproduct_status' => 'nullable|string',
             'partsproduct_assetID' => 'nullable|string',
             'partsproduct_newassetID' => 'nullable|string',
             'partsproduct_desc' => 'nullable|string',
@@ -174,6 +178,24 @@ class PartsproductController extends Controller
         ]);
     }
 
+    public function generatePdf($id)
+        {
+            $product = Partsproduct::find($id);
+
+            $pdfOptions = new Options();
+            $pdfOptions->set('isHtml5ParserEnabled', true);
+            $pdfOptions->set('isRemoteEnabled', true);
+
+            $dompdf = new Dompdf($pdfOptions);
+            $html = view('dashboard.body.main')->render(); // Render the entire content
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            return $dompdf->stream('partsproduct_show.pdf');
+        }
+
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -191,6 +213,7 @@ class PartsproductController extends Controller
     {
         $rules = [
             'partsproduct_image' => 'image|file|max:2048',
+            'partsproduct_status' => 'nullable|string',
             'partsproduct_assetID' => 'nullable|string',
             'partsproduct_newassetID' => 'nullable|string',
             'partsproduct_desc' => 'nullable|string',
@@ -360,7 +383,7 @@ class PartsproductController extends Controller
             $row_limit    = $sheet->getHighestDataRow();
             $column_limit = $sheet->getHighestDataColumn();
             $row_range    = range( 2, $row_limit );
-            $column_range = range( 'AJ', $column_limit );
+            $column_range = range( 'AK', $column_limit );
             $startcount = 2;
             $data = array();
             foreach ( $row_range as $row ) {
@@ -399,6 +422,7 @@ class PartsproductController extends Controller
                     'partsproduct_remark' =>$sheet->getCell( 'AF' . $row )->getValue(),
                     'partsproduct_image' =>$sheet->getCell( 'AG' . $row )->getValue(),
                     'partsproduct_code' =>$sheet->getCell( 'AH' . $row )->getValue(),
+                    'partsproduct_status' =>$sheet->getCell( 'AI' . $row )->getValue(),
                 ];
                 $startcount++;
             }
@@ -420,7 +444,7 @@ class PartsproductController extends Controller
 
         $partsproduct_array [] = array(
             'Old ID',
-            'Asset ID',
+            'New ID',
             'Description',
             'Part Number',
             // 'Serial Number',
@@ -454,13 +478,15 @@ class PartsproductController extends Controller
             'REMARK',
             'Product Image',
             'Product code',
+            'Status',
+
         );
 
         foreach($partsproducts as $partsproduct)
         {
             $partsproduct_array[] = array(
                 'Old ID' => $partsproduct->partsproduct_assetID,
-                'Asset ID' => $partsproduct->partsproduct_newassetID,
+                'New ID' => $partsproduct->partsproduct_newassetID,
                 'Description' => $partsproduct->partsproduct_desc,
                 'Part Number' => $partsproduct->partsproduct_partnumber,
                 // 'Serial Number' => $partsproduct->partsproduct_serial,
@@ -494,6 +520,8 @@ class PartsproductController extends Controller
                 'REMARK' => $partsproduct->partsproduct_remark,
                 'Product Image' => $partsproduct->partsproduct_image,
                 'Product Code' => $partsproduct->partsproduct_code,
+                'Status' => $partsproduct->partsproduct_status,
+
             );
         }
 
