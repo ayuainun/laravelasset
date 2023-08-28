@@ -88,7 +88,7 @@
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (unreproduct Desc) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="unreproduct_desc">Description <span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="unreproduct_desc">Description</label>
                                 <input class="form-control form-control-solid @error('unreproduct_desc') is-invalid @enderror" id="unreproduct_desc" name="unreproduct_desc" type="text" placeholder="" value="{{ old('unreproduct_desc') }}" autocomplete="off"/>
                                 @error('unreproduct_desc')
                                 <div class="invalid-feedback">
@@ -283,7 +283,7 @@
                             </div>              
                             <!-- Form Group (stockIn) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="unreproduct_stockin">Stock In<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="unreproduct_stockin">Stock In</label>
                                 <input class="form-control form-control-solid @error('unreproduct_stockin') is-invalid @enderror" id="unreproduct_stockin" name="unreproduct_stockin" type="text" placeholder="" value="{{ old('unreproduct_stockin') }}" autocomplete="off" />
                                 @error('unreproduct_stockin')
                                 <div class="invalid-feedback">
@@ -317,7 +317,7 @@
                             </div>
                             <!-- Form Group (stock Quality (in-out) ) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="unreproduct_stockqty">Stock Quality<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="unreproduct_stockqty">Stock Quality</label>
                                 <input class="form-control form-control-solid @error('unreproduct_stockqty') is-invalid @enderror" id="unreproduct_stockqty" name="unreproduct_stockqty" type="text" placeholder="" value="{{ old('unreproduct_stockqty') }}" autocomplete="off" />
                                 @error('unreproduct_stockqty')
                                 <div class="invalid-feedback">
@@ -437,8 +437,26 @@
                                     document.getElementById('unreproduct_price').value = formatRupiah(initialValue);
                                 </script> 
                             </div>    
+                            <!-- Form Group (status) -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="unreproduct_status" >Status</label>
+                                    <select class="form-control form-control-solid @error('unreproduct_status') is-invalid @enderror" id="unreproduct_status" name="unreproduct_status" status="text" placeholder="" value="{{ old('unreproduct_status') }}" autocomplete="off"/>
+                                    <option selected="" disabled="">Select a status:</option>
+                                    <option value="" {{ old('unreproduct_status') === null ? 'selected' : '' }}>N/A</option>
+                                        <option>Incoming</option>
+                                        <option>Outgoing</option>
+                                        <option>At Workshop</option>
+                                    </select>
+                                    @error('unreproduct_status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>  
                             <!-- Form Group (unreproduct Remark) -->
-                            <div class="col-md-15">
+                            <div class="col-md-6">
                                 <label class="small mb-1" for="unreproduct_remark">Remark</label>
                                 <input class="form-control form-control-solid @error('unreproduct_remark') is-invalid @enderror" id="unreproduct_remark" name="unreproduct_remark" type="text" placeholder="" value="{{ old('unreproduct_remark') }}" autocomplete="off"/>
                                 @error('unreproduct_remark')
