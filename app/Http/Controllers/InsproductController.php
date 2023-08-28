@@ -13,6 +13,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Support\Facades\View;
 
 class InsproductController extends Controller
 {
@@ -62,6 +65,7 @@ class InsproductController extends Controller
 
         $rules = [
             'insproduct_image' => 'image|file|max:2048',
+            'insproduct_status' => 'nullable|string',
             'insproduct_assetID' => 'nullable|string',
             'insproduct_newassetID' => 'nullable|string',
             'insproduct_instype' => 'nullable|string',
@@ -173,6 +177,22 @@ class InsproductController extends Controller
              'barcode' => $barcode,
          ]);
     }
+    public function generatePdf($id)
+        {
+            $product = Insproduct::find($id);
+
+            $pdfOptions = new Options();
+            $pdfOptions->set('isHtml5ParserEnabled', true);
+            $pdfOptions->set('isRemoteEnabled', true);
+
+            $dompdf = new Dompdf($pdfOptions);
+            $html = view('dashboard.body.main')->render(); // Render the entire content
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            return $dompdf->stream('insproduct_show.pdf');
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -191,6 +211,7 @@ class InsproductController extends Controller
     {
         $rules = [
             'insproduct_image' => 'image|file|max:2048',
+            'insproduct_status' => 'nullable|string',
             'insproduct_assetID' => 'nullable|string',
             'insproduct_newassetID' => 'nullable|string',
             'insproduct_instype' => 'nullable|string',
@@ -360,7 +381,7 @@ class InsproductController extends Controller
             $row_limit    = $sheet->getHighestDataRow();
             $column_limit = $sheet->getHighestDataColumn();
             $row_range    = range( 2, $row_limit );
-            $column_range = range( 'AJ', $column_limit );
+            $column_range = range( 'AK', $column_limit );
             $startcount = 2;
             $data = array();
             foreach ( $row_range as $row ) {
@@ -399,6 +420,8 @@ class InsproductController extends Controller
                     'insproduct_remark' =>$sheet->getCell( 'AF' . $row )->getValue(),
                     'insproduct_image' =>$sheet->getCell( 'AG' . $row )->getValue(),
                     'insproduct_code' =>$sheet->getCell( 'AH' . $row )->getValue(),
+                   'insproduct_status' =>$sheet->getCell( 'AI' . $row )->getValue(),
+
                 ];
                 $startcount++;
             }
@@ -420,7 +443,7 @@ class InsproductController extends Controller
 
         $insproduct_array [] = array(
             'Old ID',
-            'Asset ID',
+            'New ID',
             'Instrument Type',
             'Instrument Brand',
             // 'Serial Number',
@@ -454,13 +477,15 @@ class InsproductController extends Controller
             'REMARK',
             'Product Image',
             'Product code',
+            'Status',
+
         );
 
         foreach($insproducts as $insproduct)
         {
             $insproduct_array[] = array(
                 'Old ID' => $insproduct->insproduct_assetID,
-                'Asset ID' => $insproduct->insproduct_newassetID,
+                'New ID' => $insproduct->insproduct_newassetID,
                 'Instrument Type' => $insproduct->insproduct_instype,
                 'Instrument Brand' => $insproduct->insproduct_insbrand,
                 // 'Serial Number' => $insproduct->insproduct_serial,
@@ -494,6 +519,8 @@ class InsproductController extends Controller
                 'REMARK' => $insproduct->insproduct_remark,
                 'Product Image' => $insproduct->insproduct_image,
                 'Product Code' => $insproduct->insproduct_code,
+                'Status' => $insproduct->insproduct_status,
+
             );
         }
 
