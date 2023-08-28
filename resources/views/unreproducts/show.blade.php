@@ -30,6 +30,9 @@
 <div class="container-xl px-2 mt-n10">
         <div class="row">
             <div class="col-xl-4">
+                {{-- <div class="col-md-6">
+                    <button class="btn btn-white"><i class="fa fa-print fa-lg"></i><a href="{{ route('unreproducts.pdf', ['id' => $unreproduct->id]) }}" target="_blank">Print PDF</a></button>
+                </div> --}}
                 <!-- Product image card-->
                 <div class="card mb-4 mb-xl-0">
                     <div class="card-header">Unrepairable Asset Image</div>
@@ -74,6 +77,15 @@
                     <div class="card-body">
                         <!-- Form Row -->
                         <div class="row gx-3 mb-3">
+                             <!-- Form Group (product status) -->
+                             <div class="col-md-6"> 
+                                <label class="small mb-1" for="unreproduct_status">Status</label>
+                                @if ($unreproduct->unreproduct_status)
+                                <div class="form-control form-control-solid">{{ $unreproduct->unreproduct_status }}</div>
+                                @else
+                                    <div class="form-control form-control-solid">N/A</div>
+                                @endif
+                            </div>
                             <!-- Form Group (unreproduct transfer) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="unreproduct_assetID">Old ID</label>
@@ -97,15 +109,6 @@
                                 <label class="small mb-1" for="unreproduct_desc">Description</label>
                                 @if ($unreproduct->unreproduct_desc)
                                 <div class="form-control form-control-solid">{{ $unreproduct->unreproduct_desc  }}</div>
-                                @else
-                                    <div class="form-control form-control-solid">N/A</div>
-                                @endif
-                            </div>
-                            <!-- Form Group (number of unreproduct) -->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="unreproduct_partnumber">Part Number</label>
-                                @if ($unreproduct->unreproduct_partnumber)
-                                <div class="form-control form-control-solid">{{ $unreproduct->unreproduct_partnumber  }}</div>
                                 @else
                                     <div class="form-control form-control-solid">N/A</div>
                                 @endif
