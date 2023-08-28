@@ -13,6 +13,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Support\Facades\View;
 
 class UnreproductController extends Controller
 {
@@ -62,6 +65,7 @@ class UnreproductController extends Controller
 
         $rules = [
             'unreproduct_image' => 'image|file|max:2048',
+            'unreproduct_status' => 'nullable|string',
             'unreproduct_assetID' => 'nullable|string',
             'unreproduct_newassetID' => 'nullable|string',
             'unreproduct_desc' => 'nullable|string',
@@ -173,6 +177,22 @@ class UnreproductController extends Controller
             'barcode' => $barcode,
         ]);
     }
+    public function generatePdf($id)
+        {
+            $product = Unreproduct::find($id);
+
+            $pdfOptions = new Options();
+            $pdfOptions->set('isHtml5ParserEnabled', true);
+            $pdfOptions->set('isRemoteEnabled', true);
+
+            $dompdf = new Dompdf($pdfOptions);
+            $html = view('dashboard.body.main')->render(); // Render the entire content
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            return $dompdf->stream('unreproduct_show.pdf');
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -191,6 +211,7 @@ class UnreproductController extends Controller
     {
         $rules = [
             'unreproduct_image' => 'image|file|max:2048',
+            'unreproduct_status' => 'nullable|string',
             'unreproduct_assetID' => 'nullable|string',
             'unreproduct_newassetID' => 'nullable|string',
             'unreproduct_desc' => 'nullable|string',
@@ -357,7 +378,7 @@ class UnreproductController extends Controller
             $row_limit    = $sheet->getHighestDataRow();
             $column_limit = $sheet->getHighestDataColumn();
             $row_range    = range( 2, $row_limit );
-            $column_range = range( 'AJ', $column_limit );
+            $column_range = range( 'AK', $column_limit );
             $startcount = 2;
             $data = array();
             foreach ( $row_range as $row ) {
@@ -395,6 +416,8 @@ class UnreproductController extends Controller
                     'unreproduct_remark' =>$sheet->getCell( 'AF' . $row )->getValue(),
                     'unreproduct_image' =>$sheet->getCell( 'AG' . $row )->getValue(),
                     'unreproduct_code' =>$sheet->getCell( 'AH' . $row )->getValue(),
+                    'unreproduct_status' =>$sheet->getCell( 'AI' . $row )->getValue(),
+                    
                 ];
                 $startcount++;
             }
@@ -416,7 +439,7 @@ class UnreproductController extends Controller
 
         $unreproduct_array [] = array(
             'Old ID',
-            'Asset ID',
+            'New ID',
             'Description',
             // 'Serial Number',
             'Material Transfer',
@@ -449,13 +472,15 @@ class UnreproductController extends Controller
             'REMARK',
             'Product Image',
             'Product code',
+            'Status',
+
         );
 
         foreach($unreproducts as $unreproduct)
         {
             $unreproduct_array[] = array(
                 'Old ID' => $unreproduct->unreproduct_assetID,
-                'Asset ID' => $unreproduct->unreproduct_newassetID,
+                'New ID' => $unreproduct->unreproduct_newassetID,
                 'Description' => $unreproduct->unreproduct_desc,
                 // 'Serial Number' => $unreproduct->unreproduct_serial,
                 'Material Transfer' => $unreproduct->unreproduct_transfer,
@@ -488,6 +513,8 @@ class UnreproductController extends Controller
                 'REMARK' => $unreproduct->unreproduct_remark,
                 'Product Image' => $unreproduct->unreproduct_image,
                 'Product Code' => $unreproduct->unreproduct_code,
+                'Status' => $unreproduct->unreproduct_status,
+
             );
         }
 
