@@ -13,7 +13,7 @@
                 <div class="col-auto mt-4">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
-                        Edit Spae Parts
+                        Edit Spare Parts
                     </h1>
                 </div>
             </div>
@@ -21,7 +21,7 @@
             <nav class="mt-4 rounded" aria-label="breadcrumb">
                 <ol class="breadcrumb px-3 py-2 rounded mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('partsproducts.index') }}">Spae Parts</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('partsproducts.index') }}">Spare Parts</a></li>
                     <li class="breadcrumb-item active">Edit</li>
                 </ol>
             </nav>
@@ -39,7 +39,7 @@
             <div class="col-xl-4">
                 <!-- Product image card-->
                 <div class="card mb-4 mb-xl-0">
-                    <div class="card-header">Spae Parts Image</div>
+                    <div class="card-header">Spare Parts Image</div>
                     <div class="card-body text-center">
                         <!-- Product image -->
                         <img class="img-account-profile mb-2" src="{{ $partsproduct->partsproduct_image ? asset($partsproduct->partsproduct_image) : asset('assets/img/products/default.webp') }}" alt="" id="image-preview" />
@@ -60,7 +60,7 @@
                 <!-- BEGIN: Product Details -->
                 <div class="card mb-4">
                     <div class="card-header">
-                        Spae Parts Detail
+                        Spare Parts Detail
                     </div>
                     <div class="card-body">
                         <!-- Form Row -->
@@ -87,7 +87,7 @@
                             </div>
                             <!-- Form Group (partsproduct Desc) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="partsproduct_desc">Description <span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="partsproduct_desc">Description</label>
                                 <input class="form-control form-control-solid @error('partsproduct_desc') is-invalid @enderror" id="partsproduct_desc" name="partsproduct_desc" type="text" placeholder="" value="{{ old('partsproduct_desc', $partsproduct->partsproduct_desc) }}" autocomplete="off"/>
                                 @error('partsproduct_desc')
                                 <div class="invalid-feedback">
@@ -97,7 +97,7 @@
                             </div>
                             <!-- Form Group (partsproduct partnumber) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="partsproduct_partnumber">Part Number <span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="partsproduct_partnumber">Part Number</label>
                                 <input class="form-control form-control-solid @error('partsproduct_partnumber') is-invalid @enderror" id="partsproduct_partnumber" name="partsproduct_partnumber" type="text" placeholder="" value="{{ old('partsproduct_partnumber', $partsproduct->partsproduct_partnumber) }}" autocomplete="off"/>
                                 @error('partsproduct_partnumber')
                                 <div class="invalid-feedback">
@@ -105,6 +105,7 @@
                                 </div>
                                 @enderror
                             </div>
+
                             {{-- <!-- Form Group (partsproduct serial) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="partsproduct_serial">Serial Number <span class="text-danger">*</span></label>
@@ -257,7 +258,7 @@
                             </div>               
                             <!-- Form Group (stockIn) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="partsproduct_stockin">Stock In<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="partsproduct_stockin">Stock In</label>
                                 <input class="form-control form-control-solid @error('partsproduct_stockin') is-invalid @enderror" id="partsproduct_stockin" name="partsproduct_stockin" type="text" placeholder="" value="{{ old('partsproduct_stockin', $partsproduct->partsproduct_stockin) }}" autocomplete="off"/>
                                 @error('partsproduct_stockin')
                                 <div class="invalid-feedback">
@@ -291,7 +292,7 @@
                             </div> 
                             <!-- Form Group (stock Quality (in-out) ) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="partsproduct_stockqty">Stock Quality<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="partsproduct_stockqty">Stock Quality</label>
                                 <input class="form-control form-control-solid @error('partsproduct_stockqty') is-invalid @enderror" id="partsproduct_stockqty" name="partsproduct_stockqty" type="text" placeholder="" value="{{ old('partsproduct_stockqty', $partsproduct->partsproduct_stockqty) }}" autocomplete="off"/>
                                 @error('partsproduct_stockqty')
                                 <div class="invalid-feedback">
@@ -444,8 +445,26 @@
                                     document.getElementById('partsproduct_price').value = formatRupiah(initialValue);
                                 </script> 
                             </div>    
-                            <!-- Form Group (partsproduct Remark) -->
+                            <!-- Form Group (status) -->
                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="partsproduct_status" >Status</label>
+                                    <select class="form-control form-control-solid @error('partsproduct_status') is-invalid @enderror" id="partsproduct_status" name="partsproduct_status" status="text" placeholder="" value="{{ old('partsproduct_status', $partsproduct->partsproduct_status) }}" autocomplete="off"/>
+                                    <option selected="" disabled="">Select a status:</option>
+                                    <option value="" {{ old('partsproduct_status') === null ? 'selected' : '' }}>N/A</option>
+                                        <option>Incoming</option>
+                                        <option>Outgoing</option>
+                                        <option>At Workshop</option>
+                                    </select>
+                                    @error('partsproduct_status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>  
+                            <!-- Form Group (partsproduct Remark) -->
+                            <div class="col-md-15">
                                 <label class="small mb-1" for="partsproduct_remark">Remark</label>
                                 <input class="form-control form-control-solid @error('partsproduct_remark') is-invalid @enderror" id="partsproduct_remark" name="partsproduct_remark" type="text" placeholder="" value="{{ old('partsproduct_remark', $partsproduct->partsproduct_remark) }}" autocomplete="off"/>
                                 @error('partsproduct_remark')
