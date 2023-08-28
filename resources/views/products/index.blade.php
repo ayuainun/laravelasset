@@ -72,7 +72,7 @@
                                 <label class="control-label col-sm-3" for="search">Search:</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <input type="text" id="search" class="form-control me-1" name="search" placeholder="Search product" value="{{ request('search') }}">
+                                        <input type="text" id="search" class="form-control me-1" name="search" placeholder="Search Product" value="{{ request('search') }}">
                                         <div class="input-group-append">
                                             <button type="submit" class="input-group-text bg-primary"><i class="fa-solid fa-magnifying-glass font-size-20 text-white"></i></button>
                                         </div>
@@ -92,16 +92,17 @@
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Image</th>
-                                    <th scope="col">@sortablelink('product_assetID', 'Old ID')</th>
+                                    <th scope="col">@sortablelink('product_status', 'Status')</th>
+                                    {{-- <th scope="col">@sortablelink('product_assetID', 'Old ID')</th> --}}
                                     <th scope="col">@sortablelink('product_newassetID', 'New ID')</th>
-                                    <th scope="col">@sortablelink('product_equip', 'Equipment')</th>
+                                    {{-- <th scope="col">@sortablelink('product_equip', 'Equipment')</th> --}}
                                     <th scope="col">@sortablelink('product_type', 'Valve Type')</th>
-                                    <th scope="col">@sortablelink('product_end', 'End Connection')</th>
+                                    {{-- <th scope="col">@sortablelink('product_end', 'End Connection')</th> --}}
                                     <th scope="col">@sortablelink('product_size', 'Valve Size (Inch)')</th>
                                     <th scope="col">@sortablelink('product_rating', 'Valve Rating')</th>
                                     <th scope="col">@sortablelink('product_brand', 'Valve Brand')</th>
                                     <th scope="col">@sortablelink('product_valvemodel', 'Valve Model')</th>
-                                    <th scope="col">@sortablelink('product_serial', 'Serial Number')</th>
+                                    {{-- <th scope="col">@sortablelink('product_serial', 'Serial Number')</th>
                                     <th scope="col">@sortablelink('product_condi', 'Valve Condition')</th>
                                     <th scope="col">@sortablelink('product_actbrand', 'Actuator Brand')</th>
                                     <th scope="col">@sortablelink('product_acttype', 'Actuator Type')</th>
@@ -112,35 +113,35 @@
                                     <th scope="col">@sortablelink('product_posmodel', 'Positioner Model')</th>
                                     <th scope="col">@sortablelink('product_inputsignal', 'Input Signal')</th>
                                     <th scope="col">@sortablelink('product_poscond', 'Positioner Condition')</th>
-                                    <th scope="col">@sortablelink('product_other', 'Other Accessories')</th>
-                                    <th scope="col">@sortablelink('product_datein', 'Date In')</th>
-                                    <th scope="col">@sortablelink('product_transfer', 'Material Transfer')</th>
+                                    <th scope="col">@sortablelink('product_other', 'Other Accessories')</th> --}}
+                                    {{-- <th scope="col">@sortablelink('product_datein', 'Date In')</th> --}}
+                                    {{-- <th scope="col">@sortablelink('product_transfer', 'Material Transfer')</th>
                                     <th scope="col">@sortablelink('product_reser', 'Reservation Number')</th>
                                     <th scope="col">@sortablelink('product_origin', 'Ex Station')</th>
                                     <th scope="col">@sortablelink('product_sdvin', 'SDV In')</th>
                                     <th scope="col">@sortablelink('product_sdvout', 'SDV Out')</th>
                                     <th scope="col">@sortablelink('product_station', 'Station')</th>
                                     <th scope="col">@sortablelink('product_requestor', 'Requestor')</th>
-                                    <th scope="col">@sortablelink('product_project', 'Project')</th>
-                                    <th scope="col">@sortablelink('product_dateout', 'Date Out')</th>
-                                    <th scope="col">@sortablelink('product_dateoffshore', 'Date to offshore')</th>
-                                    <th scope="col">@sortablelink('product_tfoffshore', 'Material transfer to offshore')</th>
-                                    <th scope="col">@sortablelink('product_curloc', 'Current Location')</th>
+                                    <th scope="col">@sortablelink('product_project', 'Project')</th> --}}
+                                    {{-- <th scope="col">@sortablelink('product_dateout', 'Date Out')</th> --}}
+                                    {{-- <th scope="col">@sortablelink('product_dateoffshore', 'Date to offshore')</th> --}}
+                                    {{-- <th scope="col">@sortablelink('product_tfoffshore', 'Material transfer to offshore')</th>
+                                    <th scope="col">@sortablelink('product_curloc', 'Current Location')</th> --}}
                                     <th scope="col">@sortablelink('product_stockin', 'Stock In')</th>
                                     <th scope="col">@sortablelink('product_docin', 'Dok Stock In')</th>
                                     <th scope="col">@sortablelink('product_stockout', 'Stock Out')</th>
                                     <th scope="col">@sortablelink('product_docout', 'Dok Stock Out')</th>
                                     <th scope="col">@sortablelink('product_stockqty', 'Stock Quantity')</th>
-                                    <th scope="col">@sortablelink('product_uom', 'UOM')</th>
+                                    {{-- <th scope="col">@sortablelink('product_uom', 'UOM')</th>
                                     <th scope="col">@sortablelink('product_targetpdn', 'TARGET PDN')</th>
                                     <th scope="col">@sortablelink('product_csrelease', 'CS Release')</th>
-                                    <th scope="col">@sortablelink('product_csnumber', 'CS Number')</th>
+                                    <th scope="col">@sortablelink('product_csnumber', 'CS Number')</th> --}}
                                     <th scope="col">@sortablelink('product_cenumber', 'CE Number')</th>
                                     <th scope="col">@sortablelink('product_ronumber', 'RO Number')</th>
-                                    <th scope="col">@sortablelink('product_startdate', 'Start Date')</th>
-                                    <th scope="col">@sortablelink('product_enddate', 'End Date')</th>
-                                    <th scope="col">@sortablelink('product_price', 'Price Repair')</th>
-                                    <th scope="col">@sortablelink('product_remark', 'REMARK')</th>
+                                    {{-- <th scope="col">@sortablelink('product_startdate', 'Start Date')</th>
+                                    <th scope="col">@sortablelink('product_enddate', 'End Date')</th> --}}
+                                    {{-- <th scope="col">@sortablelink('product_price', 'Price Repair')</th> --}}
+                                    {{-- <th scope="col">@sortablelink('product_remark', 'REMARK')</th> --}}
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -153,16 +154,43 @@
                                             <img class="img-fluid" src="{{ $product->product_image ? asset($product->product_image) : asset('assets/img/products/default.webp') }}">
                                         </div>
                                     </td>
-                                    <td>{{ $product->product_assetID }}</td>
+                                    <td>
+                                        <div class="status-box
+                                          @if($product->product_status == 'Incoming')
+                                            bg-success
+                                          @elseif($product->product_status == 'Outgoing')
+                                            bg-danger
+                                          @else
+                                            bg-info
+                                          @endif">
+                                          <span class="status-text
+                                            @if($product->product_status == 'Incoming')
+                                              text-white
+                                            @elseif($product->product_status == 'Outgoing')
+                                              text-white
+                                            @else($product->product_status == 'Workshop')
+                                              text-white
+                                            @endif">
+                                            @if($product->product_status == 'Incoming')
+                                              Incoming
+                                            @elseif($product->product_status == 'Outgoing')
+                                              Outgoing
+                                            @else
+                                              Workshop
+                                            @endif
+                                          </span>
+                                        </div>
+                                      </td>                                                             
+                                    {{-- <td>{{ $product->product_assetID }}</td> --}}
                                     <td>{{ $product->product_newassetID }}</td>
-                                    <td>{{ $product->product_equip }}</td>
+                                    {{-- <td>{{ $product->product_equip }}</td> --}}
                                     <td>{{ $product->product_type }}</td>
-                                    <td>{{ $product->product_end }}</td>
+                                    {{-- <td>{{ $product->product_end }}</td> --}}
                                     <td>{{ $product->product_size }}</td>
                                     <td>{{ $product->product_rating }}</td>
                                     <td>{{ $product->product_brand }}</td>
                                     <td>{{ $product->product_valvemodel }}</td>
-                                    <td>{{ $product->product_serial }}</td>
+                                    {{-- <td>{{ $product->product_serial }}</td>
                                     <td>{{ $product->product_condi }}</td>
                                     <td>{{ $product->product_actbrand }}</td>
                                     <td>{{ $product->product_acttype }}</td>
@@ -173,20 +201,20 @@
                                     <td>{{ $product->product_posmodel }}</td>
                                     <td>{{ $product->product_inputsignal }}</td>
                                     <td>{{ $product->product_poscond }}</td>
-                                    <td>{{ $product->product_other }}</td>
-                                    <td>{{ $product->product_datein }}</td>
-                                    <td>{{ $product->product_transfer }}</td>
+                                    <td>{{ $product->product_other }}</td> --}}
+                                    {{-- <td>{{ $product->product_datein }}</td> --}}
+                                    {{-- <td>{{ $product->product_transfer }}</td>
                                     <td>{{ $product->product_reser }}</td>
                                     <td>{{ $product->product_origin }}</td>
                                     <td>{{ $product->product_sdvin }}</td>
                                     <td>{{ $product->product_sdvout }}</td>
                                     <td>{{ $product->product_station }}</td>
                                     <td>{{ $product->product_requestor }}</td>
-                                    <td>{{ $product->product_project }}</td>
-                                    <td>{{ $product->product_dateout }}</td>
-                                    <td>{{ $product->product_dateoffshore }}</td>
-                                    <td>{{ $product->product_tfoffshore }}</td>
-                                    <td>{{ $product->product_curloc }}</td>
+                                    <td>{{ $product->product_project }}</td> --}}
+                                    {{-- <td>{{ $product->product_dateout }}</td>
+                                    <td>{{ $product->product_dateoffshore }}</td> --}}
+                                    {{-- <td>{{ $product->product_tfoffshore }}</td>
+                                    <td>{{ $product->product_curloc }}</td> --}}
                                     <td>{{ $product->product_stockin }}</td>
                                     {{-- <td>{{ $product->product_docin }}</td> --}}
                                     <td>
@@ -205,16 +233,16 @@
                                         @endif
                                     </td>      
                                     <td>{{ $product->product_stockqty }}</td>
-                                    <td>{{$product->product_uom }}</td>
+                                    {{-- <td>{{$product->product_uom }}</td>
                                     <td>{{ $product->product_targetpdn }}</td>
                                     <td>{{ $product->product_csrelease }}</td>
-                                    <td>{{ $product->product_csnumber }}</td>
+                                    <td>{{ $product->product_csnumber }}</td> --}}
                                     <td>{{ $product->product_cenumber }}</td>
                                     <td>{{ $product->product_ronumber }}</td>
-                                    <td>{{ $product->product_startdate }}</td>
-                                    <td>{{ $product->product_enddate }}</td>
-                                    <td>{{ $product->product_price }}</td>
-                                    <td>{{ $product->product_remark }}</td>
+                                    {{-- <td>{{ $product->product_startdate }}</td>
+                                    <td>{{ $product->product_enddate }}</td> --}}
+                                    {{-- <td>{{ $product->product_price }}</td> --}}
+                                    {{-- <td>{{ $product->product_remark }}</td> --}}
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('products.show', $product->id) }}" class="btn btn-outline-success btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
