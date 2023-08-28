@@ -12,6 +12,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Support\Facades\View;
 
 class RepairproductController extends Controller
 {
@@ -61,6 +64,7 @@ class RepairproductController extends Controller
 
         $rules = [
             'repairproduct_image' => 'image|file|max:2048',
+            'repairproduct_status' => 'nullable|string',
             'repairproduct_assetID' => 'nullable|string',
             'repairproduct_newassetID' => 'nullable|string',
             'repairproduct_equip' =>'nullable|string',
@@ -190,6 +194,22 @@ class RepairproductController extends Controller
             'barcode' => $barcode,
         ]);
     }
+    public function generatePdf($id)
+    {
+        $product = Repairproduct::find($id);
+
+        $pdfOptions = new Options();
+        $pdfOptions->set('isHtml5ParserEnabled', true);
+        $pdfOptions->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($pdfOptions);
+        $html = view('dashboard.body.main')->render(); // Render the entire content
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        return $dompdf->stream('repairproduct_show.pdf');
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -208,6 +228,7 @@ class RepairproductController extends Controller
     {
         $rules = [
             'repairproduct_image' => 'image|file|max:2048',
+            'repairproduct_status' => 'nullable|string',
             'repairproduct_assetID' => 'nullable|string',
             'repairproduct_newassetID' => 'nullable|string',
             'repairproduct_equip' =>'nullable|string',
@@ -393,7 +414,7 @@ class RepairproductController extends Controller
             $row_limit    = $sheet->getHighestDataRow();
             $column_limit = $sheet->getHighestDataColumn();
             $row_range    = range( 2, $row_limit );
-            $column_range = range( 'BA', $column_limit );
+            $column_range = range( 'BB', $column_limit );
             $startcount = 2;
             $data = array();
             foreach ( $row_range as $row ) {
@@ -449,6 +470,8 @@ class RepairproductController extends Controller
                     'repairproduct_remark' =>$sheet->getCell( 'AW' . $row )->getValue(),
                     'repairproduct_image' =>$sheet->getCell( 'AX' . $row )->getValue(),
                     'repairproduct_code' =>$sheet->getCell( 'AY' . $row )->getValue(),
+                    'repairproduct_status' =>$sheet->getCell( 'AZ' . $row )->getValue(),
+               
                 ];
                 $startcount++;
             }
@@ -470,7 +493,7 @@ class RepairproductController extends Controller
 
         $repairproduct_array [] = array(
             'Old ID',
-            'Asset ID',
+            'New ID',
             'Equipment',
             'Valve Type',
             'End Connection',
@@ -520,13 +543,15 @@ class RepairproductController extends Controller
             'REMARK',
             'Product Image',
             'Product code',
+            'Status',
+
         );
 
         foreach($repairproducts as $repairproduct)
         {
             $repairproduct_array[] = array(
                 'Old ID' => $repairproduct->repairproduct_assetID,
-                'Asset ID' => $repairproduct->repairproduct_newassetID,
+                'New ID' => $repairproduct->repairproduct_newassetID,
                 'Equipment' => $repairproduct->repairproduct_equip,
                 'Valve Type' => $repairproduct->repairproduct_unit,
                 'End Connection' => $repairproduct->repairproduct_end,
@@ -576,6 +601,8 @@ class RepairproductController extends Controller
                 'REMARK' => $repairproduct->repairproduct_remark,
                 'Product Image' => $repairproduct->repairproduct_image,
                 'Product Code' => $repairproduct->repairproduct_code,
+                'Status' => $repairproduct->repairproduct_status,
+
             );
         }
 
