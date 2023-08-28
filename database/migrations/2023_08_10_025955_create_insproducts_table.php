@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('insproducts', function (Blueprint $table) {
             $table->id();
+            $table->string('insproduct_status')->nullable();
             $table->string('insproduct_assetID')->nullable();
             $table->string('insproduct_newassetID')->nullable();
             $table->string('insproduct_instype')->nullable();
