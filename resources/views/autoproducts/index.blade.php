@@ -92,10 +92,11 @@
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Image</th>
-                                    <th scope="col">@sortablelink('autoproduct_assetID', 'Old ID')</th>
-                                    <th scope="col">@sortablelink('autoproduct_newassetID', 'Asset ID')</th>
+                                    <th scope="col">@sortablelink('autoproduct_status', 'Status')</th>
+                                    {{-- <th scope="col">@sortablelink('autoproduct_assetID', 'Old ID')</th> --}}
+                                    <th scope="col">@sortablelink('autoproduct_newassetID', 'New ID')</th>
                                     <th scope="col">@sortablelink('autoproduct_brand', 'Automation Brand')</th>
-                                    <th scope="col">@sortablelink('autoproduct_datein', 'Date In')</th>
+                                    {{-- <th scope="col">@sortablelink('autoproduct_datein', 'Date In')</th>
                                     <th scope="col">@sortablelink('autoproduct_transfer', 'Material Transfer')</th>
                                     <th scope="col">@sortablelink('autoproduct_reser', 'Reservation Number')</th>
                                     <th scope="col">@sortablelink('autoproduct_origin', 'Ex Station')</th>
@@ -108,21 +109,21 @@
                                     <th scope="col">@sortablelink('autoproduct_dateoffshore', 'Date to offshore')</th>
                                     <th scope="col">@sortablelink('autoproduct_tfoffshore', 'Material transfer to offshore')</th>
                                     <th scope="col">@sortablelink('autoproduct_curloc', 'Current Location')</th>
-                                    <th scope="col">@sortablelink('autoproduct_stockin', 'Stock In')</th>
+                                    <th scope="col">@sortablelink('autoproduct_stockin', 'Stock In')</th> --}}
                                     <th scope="col">@sortablelink('autoproduct_docin', 'Dok Stock In')</th>
                                     <th scope="col">@sortablelink('autoproduct_stockout', 'Stock Out')</th>
                                     <th scope="col">@sortablelink('autoproduct_docout', 'Dok Stock Out')</th>
                                     <th scope="col">@sortablelink('autoproduct_stockqty', 'Stock Quantity')</th>
-                                    <th scope="col">@sortablelink('autoproduct_uom', 'UOM')</th>
+                                    {{-- <th scope="col">@sortablelink('autoproduct_uom', 'UOM')</th>
                                     <th scope="col">@sortablelink('autoproduct_targetpdn', 'Target PDN')</th>
                                     <th scope="col">@sortablelink('autoproduct_csrelease', 'CS Release')</th>
-                                    <th scope="col">@sortablelink('autoproduct_csnumber', 'CS Number')</th>
+                                    <th scope="col">@sortablelink('autoproduct_csnumber', 'CS Number')</th> --}}
                                     <th scope="col">@sortablelink('autoproduct_cenumber', 'CE Number')</th>
                                     <th scope="col">@sortablelink('autoproduct_ronumber', 'RO Number')</th>
-                                    <th scope="col">@sortablelink('autoproduct_startdate', 'Start Date')</th>
+                                    {{-- <th scope="col">@sortablelink('autoproduct_startdate', 'Start Date')</th>
                                     <th scope="col">@sortablelink('autoproduct_enddate', 'End Date')</th>
                                     <th scope="col">@sortablelink('autoproduct_price', 'Price Repair')</th>
-                                    <th scope="col">@sortablelink('autoproduct_remark', 'REMARK')</th>
+                                    <th scope="col">@sortablelink('autoproduct_remark', 'REMARK')</th> --}}
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -135,10 +136,37 @@
                                             <img class="img-fluid" src="{{ $autoproduct->autoproduct_image ? asset($autoproduct->autoproduct_image) : asset('assets/img/products/default.webp') }}">
                                         </div>
                                     </td>
-                                    <td>{{ $autoproduct->autoproduct_assetID }}</td>
+                                    <td>
+                                        <div class="status-box
+                                          @if($autoproduct->autoproduct_status == 'Incoming')
+                                            bg-success
+                                          @elseif($autoproduct->autoproduct_status == 'Outgoing')
+                                            bg-danger
+                                          @else
+                                            bg-info
+                                          @endif">
+                                          <span class="status-text
+                                            @if($autoproduct->autoproduct_status == 'Incoming')
+                                              text-white
+                                            @elseif($autoproduct->autoproduct_status == 'Outgoing')
+                                              text-white
+                                            @else($autoproduct->autoproduct_status == 'Workshop')
+                                              text-white
+                                            @endif">
+                                            @if($autoproduct->autoproduct_status == 'Incoming')
+                                              Incoming
+                                            @elseif($autoproduct->autoproduct_status == 'Outgoing')
+                                              Outgoing
+                                            @else
+                                              Workshop
+                                            @endif
+                                          </span>
+                                        </div>
+                                      </td>                                 
+                                    {{-- <td>{{ $autoproduct->autoproduct_assetID }}</td> --}}
                                     <td>{{ $autoproduct->autoproduct_newassetID }}</td>
                                     <td>{{ $autoproduct->autoproduct_brand }}</td>
-                                    <td>{{ $autoproduct->autoproduct_datein }}</td>
+                                    {{-- <td>{{ $autoproduct->autoproduct_datein }}</td>
                                     <td>{{ $autoproduct->autoproduct_transfer }}</td>
                                     <td>{{ $autoproduct->autoproduct_reser }}</td>
                                     <td>{{ $autoproduct->autoproduct_origin }}</td>
@@ -150,7 +178,7 @@
                                     <td>{{ $autoproduct->autoproduct_dateout }}</td>
                                     <td>{{ $autoproduct->autoproduct_dateoffshore }}</td>
                                     <td>{{ $autoproduct->autoproduct_tfoffshore }}</td>
-                                    <td>{{ $autoproduct->autoproduct_curloc }}</td>
+                                    <td>{{ $autoproduct->autoproduct_curloc }}</td> --}}
                                     <td>{{ $autoproduct->autoproduct_stockin }}</td>
                                     <td>
                                         @if($autoproduct->autoproduct_docin)
@@ -169,16 +197,16 @@
                                     </td>
 
                                     <td>{{ $autoproduct->autoproduct_stockqty }}</td>
-                                    <td>{{ $autoproduct->autoproduct_uom }}</td>
+                                    {{-- <td>{{ $autoproduct->autoproduct_uom }}</td>
                                     <td>{{ $autoproduct->autoproduct_targetpdn }}</td>
                                     <td>{{ $autoproduct->autoproduct_csrelease }}</td>
-                                    <td>{{ $autoproduct->autoproduct_csnumber }}</td>
+                                    <td>{{ $autoproduct->autoproduct_csnumber }}</td> --}}
                                     <td>{{ $autoproduct->autoproduct_cenumber }}</td>
                                     <td>{{ $autoproduct->autoproduct_ronumber }}</td>
-                                    <td>{{ $autoproduct->autoproduct_startdate }}</td>
+                                    {{-- <td>{{ $autoproduct->autoproduct_startdate }}</td>
                                     <td>{{ $autoproduct->autoproduct_enddate }}</td>
                                     <td>{{ $autoproduct->autoproduct_price }}</td>
-                                    <td>{{ $autoproduct->autoproduct_remark }}</td>
+                                    <td>{{ $autoproduct->autoproduct_remark }}</td> --}}
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('autoproducts.show', $autoproduct->id) }}" class="btn btn-outline-success btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
