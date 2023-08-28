@@ -60,11 +60,29 @@
                 <!-- BEGIN: Product Details -->
                 <div class="card mb-4">
                     <div class="card-header">
-                        Data Master
+                        Detail Valve
                     </div>
                     <div class="card-body">
                         <!-- Form Row -->
                         <div class="row gx-3 mb-3">
+                            <!-- Form Group (status) -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="product_status" >Status</label>
+                                    <select class="form-control form-control-solid @error('product_status') is-invalid @enderror" id="product_status" name="product_status" status="text" placeholder="" value="{{ old('product_status', $product->product_status) }}" autocomplete="off"/>
+                                    <option selected="" disabled="">Select a status:</option>
+                                    <option value="" {{ old('product_status') === null ? 'selected' : '' }}>N/A</option>
+                                        <option>Incoming</option>
+                                        <option>Outgoing</option>
+                                        <option>At Workshop</option>
+                                    </select>
+                                    @error('product_status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>  
                             <!-- Form Group (product ID) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="product_assetID">Old ID</label>
@@ -96,36 +114,6 @@
                                 @enderror
                             </div>
                             <!-- Form Group (type of product type) -->
-                            {{-- <div class="col-md-6"> --}}
-                                {{-- <div class="form-group"> --}}
-                                    {{-- <label class="small mb-1" for="product_type" >Valve Type</label>
-                                    <select class="form-control form-control-solid @error('product_type') is-invalid @enderror" id="product_type" name="product_type" type="text" placeholder="" value="{{ old('product_type', $product->product_type) }}" autocomplete="off"/>
-                                        <option selected=""></option>
-                                        <option>3 way Valve</option>
-                                        <option>4 way Valve</option>
-                                        <option>Actuator</option>
-                                        <option>Ball Valve</option>
-                                        <option>Breather Valve</option>
-                                        <option>Butterfly Valve</option>
-                                        <option>Check Valve</option>
-                                        <option>Choke Valve</option>
-                                        <option>Control Valve</option>
-                                        <option>Control Valve/Starpac</option>
-                                        <option>Emergency Vent</option>
-                                        <option>Gate Valve</option>
-                                        <option>Globe Valve</option>
-                                        <option>Plug Valve</option>
-                                        <option>PSV</option>
-                                        <option>Regulator</option>
-                                        <option>Rising Stem Ball Valves</option>
-                                        <option>Twin Seal</option>
-                                    </select>
-                                    @error('product_type')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div> --}}
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="small mb-1" for="product_type">Valve Type</label>
@@ -573,16 +561,6 @@
                                 </div>
                                 @enderror
                             </div>
-                            <!-- Form Group (product Current Location) -->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="product_curloc">Current Location</label>
-                                <input class="form-control form-control-solid @error('product_curloc') is-invalid @enderror" id="product_curloc" name="product_curloc" type="text" placeholder="" value="{{ old('product_curloc', $product->product_curloc) }}" autocomplete="off"/>
-                                @error('product_curloc')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
                             <!-- Form Group (stockIn) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="product_stockin">Stock In</label>
@@ -639,6 +617,16 @@
                                     document.getElementById('product_stockin').addEventListener('change', calculateStockQty);
                                     document.getElementById('product_stockout').addEventListener('change', calculateStockQty);
                                 </script>
+                            </div>
+                            <!-- Form Group (product Current Location) -->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="product_curloc">Current Location</label>
+                                <input class="form-control form-control-solid @error('product_curloc') is-invalid @enderror" id="product_curloc" name="product_curloc" type="text" placeholder="" value="{{ old('product_curloc', $product->product_curloc) }}" autocomplete="off"/>
+                                @error('product_curloc')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <!-- Form Group (type of product UOM) -->
                             <div class="col-md-6">
@@ -785,7 +773,7 @@
                                 </script>                            
                             </div>
                             <!-- Form Group (product Remark) -->
-                            <div class="col-md-15">
+                            <div class="col-md-6">
                                 <label class="small mb-1" for="product_remark">Remark</label>
                                 <input class="form-control form-control-solid @error('product_remark') is-invalid @enderror" id="product_remark" name="product_remark" type="text" placeholder="" value="{{ old('product_remark', $product->product_remark) }}" autocomplete="off"/>
                                 @error('product_remark')
