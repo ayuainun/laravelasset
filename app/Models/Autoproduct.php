@@ -44,6 +44,8 @@ class Autoproduct extends Model
             'autoproduct_remark',
             'autoproduct_image',
             'autoproduct_code',
+            'autoproduct_status',
+
     ];
 
     public $sortable = [
@@ -78,6 +80,8 @@ class Autoproduct extends Model
             'autoproduct_startdate',
             'autoproduct_enddate',
             'autoproduct_remark',
+            'autoproduct_status',
+
     ];
 
     protected $guarded = [
@@ -95,3 +99,4 @@ class Autoproduct extends Model
         });
     }
 }
+
