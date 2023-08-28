@@ -46,6 +46,8 @@ class Partsproduct extends Model
         'partsproduct_remark',
         'partsproduct_image',
         'partsproduct_code',
+        'partsproduct_status',
+
     ];
 
     public $sortable = [
@@ -82,6 +84,8 @@ class Partsproduct extends Model
         'partsproduct_enddate',
         'partsproduct_price',
         'partsproduct_remark',
+        'partsproduct_status',
+
     ];
 
     protected $guarded = [
