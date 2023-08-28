@@ -60,7 +60,7 @@
                 <!-- BEGIN: bulkproduct Details -->
                 <div class="card mb-4">
                     <div class="card-header">
-                        Data Master
+                        Detail Bulk Material
                     </div>
                     <div class="card-body">
                         <!-- Form Row -->
@@ -87,7 +87,7 @@
                             </div>
                             <!-- Form Group (type of bulkproduct type) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="bulkproduct_bulktype">Bulk Material Type <span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="bulkproduct_bulktype">Bulk Material Type</label>
                                 <select class="form-control form-control-solid @error('bulkproduct_bulktype') is-invalid @enderror" id="bulkproduct_bulktype" name="bulkproduct_bulktype" autocomplete="off">
                                     <option selected="" disabled="">Select a type:</option>
                                     <option value="" {{ old('bulkproduct_bulktype') === null ? 'selected' : '' }}>N/A</option>
@@ -246,7 +246,7 @@
                             </div>
                             <!-- Form Group (stockIn) -->
                                 <div class="col-md-6">
-                                    <label class="small mb-1" for="bulkproduct_stockin">Stock In<span class="text-danger">*</span></label>
+                                    <label class="small mb-1" for="bulkproduct_stockin">Stock In</label>
                                     <input class="form-control form-control-solid @error('bulkproduct_stockin') is-invalid @enderror" id="bulkproduct_stockin" name="bulkproduct_stockin" type="text" placeholder="" value="{{ old('bulkproduct_stockin', $bulkproduct->bulkproduct_stockin) }}" autocomplete="off"/>
                                     @error('bulkproduct_stockin')
                                     <div class="invalid-feedback">
@@ -280,7 +280,7 @@
                             </div>
                             <!-- Form Group (stock Quality (in-out) ) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="bulkproduct_stockqty">Stock Quality<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="bulkproduct_stockqty">Stock Quality</label>
                                 <input class="form-control form-control-solid @error('bulkproduct_stockqty') is-invalid @enderror" id="bulkproduct_stockqty" name="bulkproduct_stockqty" type="text" placeholder="" value="{{ old('bulkproduct_stockqty', $bulkproduct->bulkproduct_stockqty) }}" autocomplete="off"/>
                                 @error('bulkproduct_stockqty')
                                 <div class="invalid-feedback">
@@ -443,6 +443,24 @@
                                     document.getElementById('bulkproduct_price').value = formatRupiah(initialValue);
                                 </script>    
                             </div>
+                            <!-- Form Group (status) -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="bulkproduct_status" >Status</label>
+                                    <select class="form-control form-control-solid @error('bulkproduct_status') is-invalid @enderror" id="bulkproduct_status" name="bulkproduct_status" status="text" placeholder="" value="{{ old('bulkproduct_status', $bulkproduct->bulkproduct_status) }}" autocomplete="off"/>
+                                    <option selected="" disabled="">Select a status:</option>
+                                    <option value="" {{ old('bulkproduct_status') === null ? 'selected' : '' }}>N/A</option>
+                                        <option>Incoming</option>
+                                        <option>Outgoing</option>
+                                        <option>At Workshop</option>
+                                    </select>
+                                    @error('bulkproduct_status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>  
                             <!-- Form Group (bulkproduct Remark) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="bulkproduct_remark">Remark</label>
