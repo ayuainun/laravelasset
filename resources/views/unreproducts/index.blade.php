@@ -92,11 +92,12 @@
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Image</th>
-                                    <th scope="col">@sortablelink('unreproduct_assetID', 'Old ID')</th>
+                                    <th scope="col">@sortablelink('unreproduct_status', 'Status')</th>
+                                    {{-- <th scope="col">@sortablelink('unreproduct_assetID', 'Old ID')</th> --}}
                                     <th scope="col">@sortablelink('unreproduct_newassetID', 'New ID')</th>
                                     <th scope="col">@sortablelink('unreproduct_desc', 'Description')</th>
                                     {{-- <th scope="col">@sortablelink('unreproduct_serial', 'Serial Number')</th> --}}
-                                    <th scope="col">@sortablelink('unreproduct_transfer', 'Material Transfer')</th>
+                                    {{-- <th scope="col">@sortablelink('unreproduct_transfer', 'Material Transfer')</th>
                                     <th scope="col">@sortablelink('unreproduct_reser', 'Reservation Number')</th>
                                     <th scope="col">@sortablelink('unreproduct_origin', 'Ex Station')</th>
                                     <th scope="col">@sortablelink('unreproduct_sdvin', 'SDV In')</th>
@@ -109,21 +110,21 @@
                                     <th scope="col">@sortablelink('unreproduct_dateoffshore', 'Date to offshore')</th>
                                     <th scope="col">@sortablelink('unreproduct_tfoffshore', 'Material transfer to offshore')</th>
                                     <th scope="col">@sortablelink('unreproduct_curloc', 'Current Location')</th>
-                                    <th scope="col">@sortablelink('unreproduct_targetpdn', 'Target PDN')</th>
+                                    <th scope="col">@sortablelink('unreproduct_targetpdn', 'Target PDN')</th> --}}
                                     <th scope="col">@sortablelink('unreproduct_stockin', 'Stock In')</th>
                                     <th scope="col">@sortablelink('unreproduct_docin', 'Dok Stock In')</th>
                                     <th scope="col">@sortablelink('unreproduct_stockout', 'Stock Out')</th>
                                     <th scope="col">@sortablelink('unreproduct_docout', 'Dok Stock Out')</th>
                                     <th scope="col">@sortablelink('unreproduct_stockqty', 'Stock Quantity')</th>
-                                    <th scope="col">@sortablelink('unreproduct_uom', 'UOM')</th>
+                                    {{-- <th scope="col">@sortablelink('unreproduct_uom', 'UOM')</th>
                                     <th scope="col">@sortablelink('unreproduct_csrelease', 'CS Release')</th>
-                                    <th scope="col">@sortablelink('unreproduct_csnumber', 'CS Number')</th>
+                                    <th scope="col">@sortablelink('unreproduct_csnumber', 'CS Number')</th> --}}
                                     <th scope="col">@sortablelink('unreproduct_cenumber', 'CE Number')</th>
                                     <th scope="col">@sortablelink('unreproduct_ronumber', 'RO Number')</th>
-                                    <th scope="col">@sortablelink('unreproduct_startdate', 'Start Date')</th>
+                                    {{-- <th scope="col">@sortablelink('unreproduct_startdate', 'Start Date')</th>
                                     <th scope="col">@sortablelink('unreproduct_enddate', 'End Date')</th>
                                     <th scope="col">@sortablelink('unreproduct_price', 'Price Repair')</th>
-                                    <th scope="col">@sortablelink('unreproduct_remark', 'REMARK')</th>
+                                    <th scope="col">@sortablelink('unreproduct_remark', 'REMARK')</th> --}}
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -136,11 +137,38 @@
                                             <img class="img-fluid" src="{{ $unreproduct->unreproduct_image ? asset($unreproduct->unreproduct_image) : asset('assets/img/products/default.webp') }}">
                                         </div>
                                     </td>
-                                    <td>{{ $unreproduct->unreproduct_assetID }}</td>
+                                    <td>
+                                        <div class="status-box
+                                          @if($unreproduct->unreproduct_status == 'Incoming')
+                                            bg-success
+                                          @elseif($unreproduct->unreproduct_status == 'Outgoing')
+                                            bg-danger
+                                          @else
+                                            bg-info
+                                          @endif">
+                                          <span class="status-text
+                                            @if($unreproduct->unreproduct_status == 'Incoming')
+                                              text-white
+                                            @elseif($unreproduct->unreproduct_status == 'Outgoing')
+                                              text-white
+                                            @else($unreproduct->unreproduct_status == 'Workshop')
+                                              text-white
+                                            @endif">
+                                            @if($unreproduct->unreproduct_status == 'Incoming')
+                                              Incoming
+                                            @elseif($unreproduct->unreproduct_status == 'Outgoing')
+                                              Outgoing
+                                            @else
+                                              Workshop
+                                            @endif
+                                          </span>
+                                        </div>
+                                      </td>                 
+                                    {{-- <td>{{ $unreproduct->unreproduct_assetID }}</td> --}}
                                     <td>{{ $unreproduct->unreproduct_newassetID }}</td>
                                     <td>{{ $unreproduct->unreproduct_desc }}</td>
                                     {{-- <td>{{ $unreproduct->unreproduct_serial }}</td> --}}
-                                    <td>{{ $unreproduct->unreproduct_transfer }}</td>
+                                    {{-- <td>{{ $unreproduct->unreproduct_transfer }}</td>
                                     <td>{{ $unreproduct->unreproduct_reser }}</td>
                                     <td>{{ $unreproduct->unreproduct_origin }}</td>
                                     <td>{{ $unreproduct->unreproduct_sdvin }}</td>
@@ -153,7 +181,7 @@
                                     <td>{{ $unreproduct->unreproduct_dateoffshore }}</td>
                                     <td>{{ $unreproduct->unreproduct_tfoffshore }}</td>
                                     <td>{{ $unreproduct->unreproduct_curloc }}</td>
-                                    <td>{{ $unreproduct->unreproduct_targetpdn }}</td>
+                                    <td>{{ $unreproduct->unreproduct_targetpdn }}</td> --}}
                                     <td>{{ $unreproduct->unreproduct_stockin }}</td>
                                     <td>
                                         @if($unreproduct->unreproduct_docin)
@@ -171,15 +199,15 @@
                                         @endif
                                     </td>
                                     <td>{{ $unreproduct->unreproduct_stockqty }}</td>
-                                    <td>{{ $unreproduct->unreproduct_uom }}</td>
+                                    {{-- <td>{{ $unreproduct->unreproduct_uom }}</td>
                                     <td>{{ $unreproduct->unreproduct_csrelease }}</td>
-                                    <td>{{ $unreproduct->unreproduct_csnumber }}</td>
+                                    <td>{{ $unreproduct->unreproduct_csnumber }}</td> --}}
                                     <td>{{ $unreproduct->unreproduct_cenumber }}</td>
                                     <td>{{ $unreproduct->unreproduct_ronumber }}</td>
-                                    <td>{{ $unreproduct->unreproduct_startdate }}</td>
+                                    {{-- <td>{{ $unreproduct->unreproduct_startdate }}</td>
                                     <td>{{ $unreproduct->unreproduct_enddate }}</td>
                                     <td>{{ $unreproduct->unreproduct_price }}</td>
-                                    <td>{{ $unreproduct->unreproduct_remark }}</td>
+                                    <td>{{ $unreproduct->unreproduct_remark }}</td> --}}
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('unreproducts.show', $unreproduct->id) }}" class="btn btn-outline-success btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
