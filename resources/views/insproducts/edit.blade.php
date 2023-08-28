@@ -299,7 +299,7 @@
                             </div>               
                             <!-- Form Group (stockIn) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="insproduct_stockin">Stock In<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="insproduct_stockin">Stock In</label>
                                 <input class="form-control form-control-solid @error('insproduct_stockin') is-invalid @enderror" id="insproduct_stockin" name="insproduct_stockin" type="text" placeholder="" value="{{ old('insproduct_stockin', $insproduct->insproduct_stockin) }}" autocomplete="off"/>
                                 @error('insproduct_stockin')
                                 <div class="invalid-feedback">
@@ -333,7 +333,7 @@
                             </div> 
                             <!-- Form Group (stock Quality (in-out) ) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="insproduct_stockqty">Stock Quality<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="insproduct_stockqty">Stock Quality</label>
                                 <input class="form-control form-control-solid @error('insproduct_stockqty') is-invalid @enderror" id="insproduct_stockqty" name="insproduct_stockqty" type="text" placeholder="" value="{{ old('insproduct_stockqty', $insproduct->insproduct_stockqty) }}" autocomplete="off"/>
                                 @error('insproduct_stockqty')
                                 <div class="invalid-feedback">
@@ -488,6 +488,24 @@
                                     document.getElementById('insproduct_price').value = formatRupiah(initialValue);
                                 </script>    
                             </div>    
+                            <!-- Form Group (status) -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="insproduct_status" >Status</label>
+                                    <select class="form-control form-control-solid @error('insproduct_status') is-invalid @enderror" id="insproduct_status" name="insproduct_status" status="text" placeholder="" value="{{ old('insproduct_status', $insproduct->insproduct_status) }}" autocomplete="off"/>
+                                    <option selected="" disabled="">Select a status:</option>
+                                    <option value="" {{ old('insproduct_status') === null ? 'selected' : '' }}>N/A</option>
+                                        <option>Incoming</option>
+                                        <option>Outgoing</option>
+                                        <option>At Workshop</option>
+                                    </select>
+                                    @error('insproduct_status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>  
                             <!-- Form Group (insproduct Remark) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="insproduct_remark">Remark</label>
