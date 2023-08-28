@@ -154,12 +154,36 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+    
 
-    'providers' => ServiceProvider::defaultProviders()->merge([
+
+    // 'providers' => ServiceProvider::defaultProviders()->merge([
+    //     /*
+    //      * Package Service Providers...
+    //      */
+
+    //     /*
+    //      * Application Service Providers...
+    //      */
+    //     App\Providers\AppServiceProvider::class,
+    //     App\Providers\AuthServiceProvider::class,
+    //     // App\Providers\BroadcastServiceProvider::class,
+    //     App\Providers\EventServiceProvider::class,
+    //     App\Providers\RouteServiceProvider::class,
+    //     Barryvdh\DomPDF\ServiceProvider::class,
+
+    //     /*
+    //     * Third Party Service Providers...
+    //     */
+    //     Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class
+    // ])->toArray(),
+   'providers' => ServiceProvider::defaultProviders()->merge([
+
+        Barryvdh\DomPDF\ServiceProvider::class,
+        
         /*
          * Package Service Providers...
          */
-
         /*
          * Application Service Providers...
          */
@@ -168,6 +192,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        
 
         /*
         * Third Party Service Providers...
@@ -186,8 +212,12 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
-    ])->toArray(),
-
-];
+//     'aliases' => Facade::defaultAliases()->merge([
+//         // 'Example' => App\Facades\Example::class,
+//     'PDF' => Barryvdh\DomPDF\Facade::class,
+//     ])->toArray(),
+// ];
+        'aliases' => Facade::defaultAliases()->merge([
+            'PDF' => Barryvdh\DomPDF\Facade::class,
+         ])->toArray(),
+    ];
