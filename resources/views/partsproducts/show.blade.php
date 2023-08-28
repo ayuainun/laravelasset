@@ -30,6 +30,9 @@
 <div class="container-xl px-2 mt-n10">
         <div class="row">
             <div class="col-xl-4">
+                {{-- <div class="col-md-6">
+                    <button class="btn btn-white"><i class="fa fa-print fa-lg"></i><a href="{{ route('partsproducts.pdf', ['id' => $partsproduct->id]) }}" target="_blank">Print PDF</a></button>
+                </div> --}}
                 <!-- Product image card-->
                 <div class="card mb-4 mb-xl-0">
                     <div class="card-header">Spare Parts Image</div>
@@ -74,6 +77,15 @@
                     <div class="card-body">
                         <!-- Form Row -->
                         <div class="row gx-3 mb-3">
+                            <!-- Form Group (product status) -->
+                            <div class="col-md-6"> 
+                                <label class="small mb-1" for="partsproduct_status">Status</label>
+                                @if ($partsproduct->partsproduct_status)
+                                <div class="form-control form-control-solid">{{ $partsproduct->partsproduct_status }}</div>
+                                @else
+                                    <div class="form-control form-control-solid">N/A</div>
+                                @endif
+                            </div>
                             <!-- Form Group (partsproduct transfer) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="partsproduct_assetID">Old ID</label>
@@ -357,7 +369,7 @@
                                 <div class="form-control form-control-solid">{{ $partsproduct->partsproduct_price  }}</div>
                             </div>
                             <!-- Form Group (remark) -->
-                            <div class="col-md-6">
+                            <div class="col-md-15">
                                 <label class="small mb-1" for="partsproduct_remark">REMARK</label>
                                 @if ($partsproduct->partsproduct_remark)
                                     <div class="form-control form-control-solid">{{ $partsproduct->partsproduct_remark }}</div>
