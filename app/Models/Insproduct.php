@@ -46,6 +46,8 @@ class Insproduct extends Model
         'insproduct_remark',
         'insproduct_image',
         'insproduct_code',
+        'insproduct_status',
+
     ];
 
     public $sortable = [
@@ -82,6 +84,8 @@ class Insproduct extends Model
         'insproduct_enddate',
         'insproduct_price',
         'insproduct_remark',
+        'insproduct_status',
+
     ];
 
     protected $guarded = [
