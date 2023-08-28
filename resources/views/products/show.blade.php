@@ -30,6 +30,12 @@
 <div class="container-xl px-2 mt-n10">
         <div class="row">
             <div class="col-xl-4">
+                <!-- Add a "Download PDF" button -->
+                    {{-- <a class="btn btn-success" href="{{ route('download-pdf') }}">Download PDF</a> --}}
+                    {{-- <a href="{{ url('download-show-pdf') }}" target="_blank">
+                        <button class="btn btn-success">Download PDF</button>
+                    </a> --}}
+                    <a class="btn btn-success" href="{{ route('download-pdf', ['id' => $product->id]) }}">Download PDF</a>
                 <!-- Product image card-->
                 <div class="card mb-4 mb-xl-0">
                     <div class="card-header">Valve Image</div>
@@ -39,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-
+                
             <div class="col-xl-8">
                 <!-- BEGIN: Product Code -->
                 {{-- <div class="card mb-4">
@@ -74,6 +80,15 @@
                     <div class="card-body">
                         <!-- Form Row -->
                         <div class="row gx-3 mb-3">
+                            <!-- Form Group (product status) -->
+                            <div class="col-md-6"> 
+                                <label class="small mb-1" for="product_status">Status</label>
+                                @if ($product->product_status)
+                                <div class="form-control form-control-solid">{{ $product->product_status }}</div>
+                                @else
+                                    <div class="form-control form-control-solid">N/A</div>
+                                @endif
+                            </div>
                             <!-- Form Group (product ID) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="product_assetID">Old ID</label>
