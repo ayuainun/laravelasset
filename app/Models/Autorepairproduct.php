@@ -44,6 +44,8 @@ class Autorepairproduct extends Model
             'autorepairproduct_remark',
             'autorepairproduct_image',
             'autorepairproduct_code',
+            'autorepairproduct_status',
+
     ];
 
     public $sortable = [
@@ -78,6 +80,8 @@ class Autorepairproduct extends Model
             'autorepairproduct_startdate',
             'autorepairproduct_enddate',
             'autorepairproduct_remark',
+            'autorepairproduct_status',
+
     ];
 
     protected $guarded = [
