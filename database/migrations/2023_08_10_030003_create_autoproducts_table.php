@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('autoproducts', function (Blueprint $table) {
             $table->id();
+            $table->string('autoproduct_status')->nullable();
             $table->string('autoproduct_assetID')->nullable();
             $table->string('autoproduct_newassetID')->nullable();
             $table->string('autoproduct_brand')->nullable();
