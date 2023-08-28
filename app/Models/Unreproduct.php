@@ -45,6 +45,8 @@ class Unreproduct extends Model
         'unreproduct_remark',
         'unreproduct_image',
         'unreproduct_code',
+        'unreproduct_status',
+
     ];
 
     public $sortable = [
@@ -80,6 +82,8 @@ class Unreproduct extends Model
         'unreproduct_enddate',
         'unreproduct_price',
         'unreproduct_remark',
+        'unreproduct_status',
+
     ];
 
     protected $guarded = [
