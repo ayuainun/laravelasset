@@ -60,7 +60,7 @@
                 <!-- BEGIN: autorepairproduct Details -->
                 <div class="card mb-4">
                     <div class="card-header">
-                        Data Master
+                        Detail Automation
                     </div>
                     <div class="card-body">
                         <!-- Form Row -->
@@ -87,7 +87,7 @@
                             </div>
                             <!-- Form Group (type of autorepairproduct brand) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="autorepairproduct_autobrand">Automation Brand <span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="autorepairproduct_autobrand">Automation Brand</label>
                                 <select class="form-select form-control-solid @error('autorepairproduct_autobrand') is-invalid @enderror" id="autorepairproduct_autobrand" name="autorepairproduct_autobrand">
                                     <option selected="" disabled="">Select a brand:</option>
                                     <option value="" {{ old('autorepairproduct_autobrand') === null ? 'selected' : '' }}>N/A</option>
@@ -252,7 +252,7 @@
                             </div>
                             <!-- Form Group (stockIn) -->
                                 <div class="col-md-6">
-                                    <label class="small mb-1" for="autorepairproduct_stockin">Stock In<span class="text-danger">*</span></label>
+                                    <label class="small mb-1" for="autorepairproduct_stockin">Stock In</label>
                                     <input class="form-control form-control-solid @error('autorepairproduct_stockin') is-invalid @enderror" id="autorepairproduct_stockin" name="autorepairproduct_stockin" type="text" placeholder="" value="{{ old('autorepairproduct_stockin', $autorepairproduct->autorepairproduct_stockin) }}" autocomplete="off"/>
                                     @error('autorepairproduct_stockin')
                                     <div class="invalid-feedback">
@@ -286,7 +286,7 @@
                             </div>
                             <!-- Form Group (stock Quality (in-out) ) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="autorepairproduct_stockqty">Stock Quality<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="autorepairproduct_stockqty">Stock Quality</label>
                                 <input class="form-control form-control-solid @error('autorepairproduct_stockqty') is-invalid @enderror" id="autorepairproduct_stockqty" name="autorepairproduct_stockqty" type="text" placeholder="" value="{{ old('autorepairproduct_stockqty', $autorepairproduct->autorepairproduct_stockqty) }}" autocomplete="off"/>
                                 @error('autorepairproduct_stockqty')
                                 <div class="invalid-feedback">
@@ -449,6 +449,24 @@
                                     document.getElementById('autorepairproduct_price').value = formatRupiah(initialValue);
                                 </script>      
                             </div>
+                            <!-- Form Group (status) -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="autorepairproduct_status" >Status</label>
+                                    <select class="form-control form-control-solid @error('autorepairproduct_status') is-invalid @enderror" id="autorepairproduct_status" name="autorepairproduct_status" status="text" placeholder="" value="{{ old('autorepairproduct_status', $autorepairproduct->autorepairproduct_status) }}" autocomplete="off"/>
+                                    <option selected="" disabled="">Select a status:</option>
+                                    <option value="" {{ old('autorepairproduct_status') === null ? 'selected' : '' }}>N/A</option>
+                                        <option>Incoming</option>
+                                        <option>Outgoing</option>
+                                        <option>At Workshop</option>
+                                    </select>
+                                    @error('autorepairproduct_status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>  
                             <!-- Form Group (autorepairproduct Remark) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="autorepairproduct_remark">Remark</label>
