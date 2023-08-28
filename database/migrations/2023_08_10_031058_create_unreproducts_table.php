@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('unreproducts', function (Blueprint $table) {
             $table->id();
+            $table->string('unreproduct_status')->nullable();
             $table->string('unreproduct_assetID')->nullable();
             $table->string('unreproduct_newassetID')->nullable();
             $table->string('unreproduct_desc')->nullable();
