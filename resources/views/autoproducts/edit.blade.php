@@ -60,7 +60,7 @@
                 <!-- BEGIN: autoproduct Details -->
                 <div class="card mb-4">
                     <div class="card-header">
-                        Data Master
+                        Detail Automation
                     </div>
                     <div class="card-body">
                         <!-- Form Row -->
@@ -87,7 +87,7 @@
                             </div>
                             <!-- Form Group (type of autoproduct brand) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="autoproduct_brand">Automation Brand <span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="autoproduct_brand">Automation Brand</label>
                                 <select class="form-select form-control-solid @error('autoproduct_brand') is-invalid @enderror" id="autoproduct_brand" name="autoproduct_brand">
                                     <option selected="" disabled="">Select a brand:</option>
                                     <option value="" {{ old('autoproduct_brand') === null ? 'selected' : '' }}>N/A</option>
@@ -447,7 +447,26 @@
                                     // Panggil formatRupiah untuk mengubah format awal (jika ada)
                                     var initialValue = document.getElementById('autoproduct_price').value;
                                     document.getElementById('autoproduct_price').value = formatRupiah(initialValue);
-                                </script>         
+                                </script>        
+                            </div>
+                            <!-- Form Group (status) -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="autoproduct_status" >Status</label>
+                                    <select class="form-control form-control-solid @error('autoproduct_status') is-invalid @enderror" id="autoproduct_status" name="autoproduct_status" status="text" placeholder="" value="{{ old('autoproduct_status', $autoproduct->autoproduct_status) }}" autocomplete="off"/>
+                                    <option selected="" disabled="">Select a status:</option>
+                                    <option value="" {{ old('autoproduct_status') === null ? 'selected' : '' }}>N/A</option>
+                                        <option>Incoming</option>
+                                        <option>Outgoing</option>
+                                        <option>At Workshop</option>
+                                    </select>
+                                    @error('autoproduct_status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>  
                             <!-- Form Group (autoproduct Remark) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="autoproduct_remark">Remark</label>
@@ -459,8 +478,9 @@
                                 @enderror
                             </div>
                         </div>
-                        </div>
-                        
+                     </div>
+                </div>
+                
                         <!-- Submit button -->
                         <button class="btn btn-primary" type="submit">Update</button>
                         <a class="btn btn-danger" href="{{ route('autoproducts.index') }}">Cancel</a>
