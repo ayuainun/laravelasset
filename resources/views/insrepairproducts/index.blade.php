@@ -9,7 +9,7 @@
                 <div class="col-auto my-4">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
-                        Instrument List
+                        Instrument Repair List
                     </h1>
                 </div>
                 <div class="col-auto my-4">
@@ -92,12 +92,13 @@
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Image</th>
-                                    <th scope="col">@sortablelink('insrepairproduct_assetID', 'Old ID')</th>
+                                    <th scope="col">@sortablelink('insrepairproduct_status', 'Status')</th>
+                                    {{-- <th scope="col">@sortablelink('insrepairproduct_assetID', 'Old ID')</th> --}}
                                     <th scope="col">@sortablelink('insrepairproduct_newassetID', 'New ID')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_instype', 'Instrument Type')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_insbrand', 'Instrument Brand')</th>
                                     {{-- <th scope="col">@sortablelink('insrepairproduct_serial', 'Serial Number')</th> --}}
-                                    <th scope="col">@sortablelink('insrepairproduct_transfer', 'Material Transfer')</th>
+                                    {{-- <th scope="col">@sortablelink('insrepairproduct_transfer', 'Material Transfer')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_reser', 'Reservation Number')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_origin', 'Ex Station')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_sdvin', 'SDV In')</th>
@@ -110,21 +111,21 @@
                                     <th scope="col">@sortablelink('insrepairproduct_dateoffshore', 'Date to offshore')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_tfoffshore', 'Material transfer to offshore')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_curloc', 'Current Location')</th>
-                                    <th scope="col">@sortablelink('insrepairproduct_targetpdn', 'Target PDN')</th>
+                                    <th scope="col">@sortablelink('insrepairproduct_targetpdn', 'Target PDN')</th> --}}
                                     <th scope="col">@sortablelink('insrepairproduct_stockin', 'Stock In')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_docin', 'Dok Stock In')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_stockout', 'Stock Out')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_docout', 'Dok Stock Out')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_stockqty', 'Stock Quantity')</th>
-                                    <th scope="col">@sortablelink('insrepairproduct_uom', 'UOM')</th>
+                                    {{-- <th scope="col">@sortablelink('insrepairproduct_uom', 'UOM')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_csrelease', 'CS Release')</th>
-                                    <th scope="col">@sortablelink('insrepairproduct_csnumber', 'CS Number')</th>
+                                    <th scope="col">@sortablelink('insrepairproduct_csnumber', 'CS Number')</th> --}}
                                     <th scope="col">@sortablelink('insrepairproduct_cenumber', 'CE Number')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_ronumber', 'RO Number')</th>
-                                    <th scope="col">@sortablelink('insrepairproduct_startdate', 'Start Date')</th>
+                                    {{-- <th scope="col">@sortablelink('insrepairproduct_startdate', 'Start Date')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_enddate', 'End Date')</th>
                                     <th scope="col">@sortablelink('insrepairproduct_price', 'Price Repair')</th>
-                                    <th scope="col">@sortablelink('insrepairproduct_remark', 'REMARK')</th>
+                                    <th scope="col">@sortablelink('insrepairproduct_remark', 'REMARK')</th> --}}
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -137,12 +138,39 @@
                                             <img class="img-fluid" src="{{ $insrepairproduct->insrepairproduct_image ? asset($insrepairproduct->insrepairproduct_image) : asset('assets/img/products/default.webp') }}">
                                         </div>
                                     </td>
-                                    <td>{{ $insrepairproduct->insrepairproduct_assetID }}</td>
+                                    <td>
+                                        <div class="status-box
+                                          @if($insrepairproduct->insrepairproduct_status == 'Incoming')
+                                            bg-success
+                                          @elseif($insrepairproduct->insrepairproduct_status == 'Outgoing')
+                                            bg-danger
+                                          @else
+                                            bg-info
+                                          @endif">
+                                          <span class="status-text
+                                            @if($insrepairproduct->insrepairproduct_status == 'Incoming')
+                                              text-white
+                                            @elseif($insrepairproduct->insrepairproduct_status == 'Outgoing')
+                                              text-white
+                                            @else($insrepairproduct->insrepairproduct_status == 'Workshop')
+                                              text-white
+                                            @endif">
+                                            @if($insrepairproduct->insrepairproduct_status == 'Incoming')
+                                              Incoming
+                                            @elseif($insrepairproduct->insrepairproduct_status == 'Outgoing')
+                                              Outgoing
+                                            @else
+                                              Workshop
+                                            @endif
+                                          </span>
+                                        </div>
+                                      </td>               
+                                    {{-- <td>{{ $insrepairproduct->insrepairproduct_assetID }}</td> --}}
                                     <td>{{ $insrepairproduct->insrepairproduct_newassetID }}</td>
                                     <td>{{ $insrepairproduct->insrepairproduct_instype }}</td>
                                     <td>{{ $insrepairproduct->insrepairproduct_insbrand }}</td>
                                     {{-- <td>{{ $insrepairproduct->insrepairproduct_serial }}</td> --}}
-                                    <td>{{ $insrepairproduct->insrepairproduct_transfer }}</td>
+                                    {{-- <td>{{ $insrepairproduct->insrepairproduct_transfer }}</td>
                                     <td>{{ $insrepairproduct->insrepairproduct_reser }}</td>
                                     <td>{{ $insrepairproduct->insrepairproduct_origin }}</td>
                                     <td>{{ $insrepairproduct->insrepairproduct_sdvin }}</td>
@@ -155,7 +183,7 @@
                                     <td>{{ $insrepairproduct->insrepairproduct_dateoffshore }}</td>
                                     <td>{{ $insrepairproduct->insrepairproduct_tfoffshore }}</td>
                                     <td>{{ $insrepairproduct->insrepairproduct_curloc }}</td>
-                                    <td>{{ $insrepairproduct->insrepairproduct_targetpdn }}</td>
+                                    <td>{{ $insrepairproduct->insrepairproduct_targetpdn }}</td> --}}
                                     <td>{{ $insrepairproduct->insrepairproduct_stockin }}</td>
                                     <td>
                                         @if($insrepairproduct->insrepairproduct_docin)
@@ -173,15 +201,15 @@
                                         @endif
                                     </td>
                                     <td>{{ $insrepairproduct->insrepairproduct_stockqty }}</td>
-                                    <td>{{ $insrepairproduct->insrepairproduct_uom }}</td>
+                                    {{-- <td>{{ $insrepairproduct->insrepairproduct_uom }}</td>
                                     <td>{{ $insrepairproduct->insrepairproduct_csrelease }}</td>
-                                    <td>{{ $insrepairproduct->insrepairproduct_csnumber }}</td>
+                                    <td>{{ $insrepairproduct->insrepairproduct_csnumber }}</td> --}}
                                     <td>{{ $insrepairproduct->insrepairproduct_cenumber }}</td>
                                     <td>{{ $insrepairproduct->insrepairproduct_ronumber }}</td>
-                                    <td>{{ $insrepairproduct->insrepairproduct_startdate }}</td>
+                                    {{-- <td>{{ $insrepairproduct->insrepairproduct_startdate }}</td>
                                     <td>{{ $insrepairproduct->insrepairproduct_enddate }}</td>
                                     <td>{{ $insrepairproduct->insrepairproduct_price }}</td>
-                                    <td>{{ $insrepairproduct->insrepairproduct_remark }}</td>
+                                    <td>{{ $insrepairproduct->insrepairproduct_remark }}</td> --}}
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('insrepairproducts.show', $insrepairproduct->id) }}" class="btn btn-outline-success btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
