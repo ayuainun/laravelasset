@@ -87,19 +87,9 @@
                             </div>
                             <!-- Form Group (unreproduct Desc) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="unreproduct_desc">Description <span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="unreproduct_desc">Description</label>
                                 <input class="form-control form-control-solid @error('unreproduct_desc') is-invalid @enderror" id="unreproduct_desc" name="unreproduct_desc" type="text" placeholder="" value="{{ old('unreproduct_desc', $unreproduct->unreproduct_desc) }}" autocomplete="off"/>
                                 @error('unreproduct_desc')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                            <!-- Form Group (unreproduct partnumber) -->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="unreproduct_partnumber">Part Number <span class="text-danger">*</span></label>
-                                <input class="form-control form-control-solid @error('unreproduct_partnumber') is-invalid @enderror" id="unreproduct_partnumber" name="unreproduct_partnumber" type="text" placeholder="" value="{{ old('unreproduct_partnumber', $unreproduct->unreproduct_partnumber) }}" autocomplete="off"/>
-                                @error('unreproduct_partnumber')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -254,76 +244,9 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
-                            </div>               
-                            <!-- Form Group (stockIn) -->
+                            </div>           
+                            <!-- Form Group (type of unreproduct UOM) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="unreproduct_stockin">Stock In<span class="text-danger">*</span></label>
-                                <input class="form-control form-control-solid @error('unreproduct_stockin') is-invalid @enderror" id="unreproduct_stockin" name="unreproduct_stockin" type="text" placeholder="" value="{{ old('unreproduct_stockin', $unreproduct->unreproduct_stockin) }}" autocomplete="off"/>
-                                @error('unreproduct_stockin')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                                <div class="small font-italic text-muted mb-2">PDF or DOC </div>
-                                <input class="form-control form-control-solid mb-2 @error('unreproduct_docin') is-invalid @enderror" type="file"  id="unreproduct_docin" name="unreproduct_docin" accept=".pdf,.doc,.docx">
-                                @error('unreproduct_docin')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                            <!-- Form Group (stockOut) -->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="unreproduct_stockout">Stock Out</label>
-                                <input class="form-control form-control-solid @error('unreproduct_stockout') is-invalid @enderror" id="unreproduct_stockout" name="unreproduct_stockout" type="text" placeholder="" value="{{ old('unreproduct_stockout', $unreproduct->unreproduct_stockout) }}" autocomplete="off"/>
-                                @error('unreproduct_stockout')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                                <div class="small font-italic text-muted mb-2">PDF or DOC </div>
-                                <input class="form-control form-control-solid mb-2 @error('unreproduct_docout') is-invalid @enderror" type="file"  id="unreproduct_docout" name="unreproduct_docout" accept=".pdf,.doc,.docx">
-                                @error('unreproduct_docout')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div> 
-                            <!-- Form Group (stock Quality (in-out) ) -->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="unreproduct_stockqty">Stock Quality<span class="text-danger">*</span></label>
-                                <input class="form-control form-control-solid @error('unreproduct_stockqty') is-invalid @enderror" id="unreproduct_stockqty" name="unreproduct_stockqty" type="text" placeholder="" value="{{ old('unreproduct_stockqty', $unreproduct->unreproduct_stockqty) }}" autocomplete="off"/>
-                                @error('unreproduct_stockqty')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                                <script>
-                                    // Fungsi untuk menghitung nilai stockqty berdasarkan stockin dan stockout
-                                    function calculateStockQty() {
-                                        var stockIn = parseInt(document.getElementById('unreproduct_stockin').value) || 0;
-                                        var stockOut = parseInt(document.getElementById('unreproduct_stockout').value) || 0;
-                                        var stockQty = stockIn - stockOut;
-                                        document.getElementById('unreproduct_stockqty').value = stockQty;
-                                    }
-                                
-                                    // Panggil fungsi calculateStockQty saat input stockin atau stockout berubah
-                                    document.getElementById('unreproduct_stockin').addEventListener('change', calculateStockQty);
-                                    document.getElementById('unreproduct_stockout').addEventListener('change', calculateStockQty);
-                                </script>
-                            </div>
-                            <!-- Form Group (unreproduct CS Release) -->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="unreproduct_csrelease">CS Release</label>
-                                <input class="form-control form-control-solid @error('unreproduct_csrelease') is-invalid @enderror" id="unreproduct_csrelease" name="unreproduct_csrelease" type="text" placeholder="" value="{{ old('unreproduct_csrelease', $unreproduct->unreproduct_csrelease) }}" autocomplete="off"/>
-                                @error('unreproduct_csrelease')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                             <!-- Form Group (type of unreproduct UOM) -->
-                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="small mb-1" for="unreproduct_uom" >UOM</label>
                                     <select class="form-control form-control-solid @error('unreproduct_uom') is-invalid @enderror" id="unreproduct_uom" name="unreproduct_uom" type="text" placeholder="" value="{{ old('unreproduct_uom', $unreproduct->unreproduct_uom) }}" autocomplete="off"/>
@@ -357,6 +280,74 @@
                                     @enderror
                                 </div>
                             </div>
+                            <!-- Form Group (stockIn) -->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="unreproduct_stockin">Stock In</label>
+                                <input class="form-control form-control-solid @error('unreproduct_stockin') is-invalid @enderror" id="unreproduct_stockin" name="unreproduct_stockin" type="text" placeholder="" value="{{ old('unreproduct_stockin', $unreproduct->unreproduct_stockin) }}" autocomplete="off"/>
+                                @error('unreproduct_stockin')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                                <div class="small font-italic text-muted mb-2">PDF or DOC </div>
+                                <input class="form-control form-control-solid mb-2 @error('unreproduct_docin') is-invalid @enderror" type="file"  id="unreproduct_docin" name="unreproduct_docin" accept=".pdf,.doc,.docx">
+                                @error('unreproduct_docin')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <!-- Form Group (stockOut) -->
+
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="unreproduct_stockout">Stock Out</label>
+                                <input class="form-control form-control-solid @error('unreproduct_stockout') is-invalid @enderror" id="unreproduct_stockout" name="unreproduct_stockout" type="text" placeholder="" value="{{ old('unreproduct_stockout', $unreproduct->unreproduct_stockout) }}" autocomplete="off"/>
+                                @error('unreproduct_stockout')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                                <div class="small font-italic text-muted mb-2">PDF or DOC </div>
+                                <input class="form-control form-control-solid mb-2 @error('unreproduct_docout') is-invalid @enderror" type="file"  id="unreproduct_docout" name="unreproduct_docout" accept=".pdf,.doc,.docx">
+                                @error('unreproduct_docout')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div> 
+                            <!-- Form Group (stock Quality (in-out) ) -->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="unreproduct_stockqty">Stock Quality</label>
+                                <input class="form-control form-control-solid @error('unreproduct_stockqty') is-invalid @enderror" id="unreproduct_stockqty" name="unreproduct_stockqty" type="text" placeholder="" value="{{ old('unreproduct_stockqty', $unreproduct->unreproduct_stockqty) }}" autocomplete="off"/>
+                                @error('unreproduct_stockqty')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                                <script>
+                                    // Fungsi untuk menghitung nilai stockqty berdasarkan stockin dan stockout
+                                    function calculateStockQty() {
+                                        var stockIn = parseInt(document.getElementById('unreproduct_stockin').value) || 0;
+                                        var stockOut = parseInt(document.getElementById('unreproduct_stockout').value) || 0;
+                                        var stockQty = stockIn - stockOut;
+                                        document.getElementById('unreproduct_stockqty').value = stockQty;
+                                    }
+                                
+                                    // Panggil fungsi calculateStockQty saat input stockin atau stockout berubah
+                                    document.getElementById('unreproduct_stockin').addEventListener('change', calculateStockQty);
+                                    document.getElementById('unreproduct_stockout').addEventListener('change', calculateStockQty);
+                                </script>
+                            </div>
+                            <!-- Form Group (unreproduct CS Release) -->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="unreproduct_csrelease">CS Release</label>
+                                <input class="form-control form-control-solid @error('unreproduct_csrelease') is-invalid @enderror" id="unreproduct_csrelease" name="unreproduct_csrelease" type="text" placeholder="" value="{{ old('unreproduct_csrelease', $unreproduct->unreproduct_csrelease) }}" autocomplete="off"/>
+                                @error('unreproduct_csrelease')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
                             <!-- Form Group (unreproduct CS number) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="unreproduct_csnumber">CS Number</label>
@@ -366,7 +357,7 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
-                            </div>
+                            </div>    
                             <!-- Form Group (unreproduct ce number) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="unreproduct_cenumber">CE Number</label>
@@ -446,6 +437,24 @@
                                     document.getElementById('unreproduct_price').value = formatRupiah(initialValue);
                                 </script> 
                             </div>    
+                            <!-- Form Group (status) -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="unreproduct_status" >Status</label>
+                                    <select class="form-control form-control-solid @error('unreproduct_status') is-invalid @enderror" id="unreproduct_status" name="unreproduct_status" status="text" placeholder="" value="{{ old('unreproduct_status', $unreproduct->unreproduct_status) }}" autocomplete="off"/>
+                                    <option selected="" disabled="">Select a status:</option>
+                                    <option value="" {{ old('unreproduct_status') === null ? 'selected' : '' }}>N/A</option>
+                                        <option>Incoming</option>
+                                        <option>Outgoing</option>
+                                        <option>At Workshop</option>
+                                    </select>
+                                    @error('unreproduct_status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>  
                             <!-- Form Group (unreproduct Remark) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="unreproduct_remark">Remark</label>
