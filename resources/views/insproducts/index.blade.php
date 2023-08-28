@@ -92,12 +92,13 @@
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Image</th>
-                                    <th scope="col">@sortablelink('insproduct_assetID', 'Old ID')</th>
+                                    <th scope="col">@sortablelink('insproduct_status', 'Status')</th>
+                                    {{-- <th scope="col">@sortablelink('insproduct_assetID', 'Old ID')</th> --}}
                                     <th scope="col">@sortablelink('insproduct_newassetID', 'New ID')</th>
                                     <th scope="col">@sortablelink('insproduct_instype', 'Instrument Type')</th>
                                     <th scope="col">@sortablelink('insproduct_insbrand', 'Instrument Brand')</th>
                                     {{-- <th scope="col">@sortablelink('insproduct_serial', 'Serial Number')</th> --}}
-                                    <th scope="col">@sortablelink('insproduct_transfer', 'Material Transfer')</th>
+                                    {{-- <th scope="col">@sortablelink('insproduct_transfer', 'Material Transfer')</th>
                                     <th scope="col">@sortablelink('insproduct_reser', 'Reservation Number')</th>
                                     <th scope="col">@sortablelink('insproduct_origin', 'Ex Station')</th>
                                     <th scope="col">@sortablelink('insproduct_sdvin', 'SDV In')</th>
@@ -110,21 +111,21 @@
                                     <th scope="col">@sortablelink('insproduct_dateoffshore', 'Date to offshore')</th>
                                     <th scope="col">@sortablelink('insproduct_tfoffshore', 'Material transfer to offshore')</th>
                                     <th scope="col">@sortablelink('insproduct_curloc', 'Current Location')</th>
-                                    <th scope="col">@sortablelink('insproduct_targetpdn', 'Target PDN')</th>
+                                    <th scope="col">@sortablelink('insproduct_targetpdn', 'Target PDN')</th> --}}
                                     <th scope="col">@sortablelink('insproduct_stockin', 'Stock In')</th>
                                     <th scope="col">@sortablelink('insproduct_docin', 'Dok Stock In')</th>
                                     <th scope="col">@sortablelink('insproduct_stockout', 'Stock Out')</th>
                                     <th scope="col">@sortablelink('insproduct_docout', 'Dok Stock Out')</th>
                                     <th scope="col">@sortablelink('insproduct_stockqty', 'Stock Quantity')</th>
-                                    <th scope="col">@sortablelink('insproduct_uom', 'UOM')</th>
+                                    {{-- <th scope="col">@sortablelink('insproduct_uom', 'UOM')</th>
                                     <th scope="col">@sortablelink('insproduct_csrelease', 'CS Release')</th>
-                                    <th scope="col">@sortablelink('insproduct_csnumber', 'CS Number')</th>
+                                    <th scope="col">@sortablelink('insproduct_csnumber', 'CS Number')</th> --}}
                                     <th scope="col">@sortablelink('insproduct_cenumber', 'CE Number')</th>
                                     <th scope="col">@sortablelink('insproduct_ronumber', 'RO Number')</th>
-                                    <th scope="col">@sortablelink('insproduct_startdate', 'Start Date')</th>
+                                    {{-- <th scope="col">@sortablelink('insproduct_startdate', 'Start Date')</th>
                                     <th scope="col">@sortablelink('insproduct_enddate', 'End Date')</th>
                                     <th scope="col">@sortablelink('insproduct_price', 'Price Repair')</th>
-                                    <th scope="col">@sortablelink('insproduct_remark', 'REMARK')</th>
+                                    <th scope="col">@sortablelink('insproduct_remark', 'REMARK')</th> --}}
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -137,12 +138,39 @@
                                             <img class="img-fluid" src="{{ $insproduct->insproduct_image ? asset($insproduct->insproduct_image) : asset('assets/img/products/default.webp') }}">
                                         </div>
                                     </td>
-                                    <td>{{ $insproduct->insproduct_assetID }}</td>
+                                    <td>
+                                        <div class="status-box
+                                          @if($insproduct->insproduct_status == 'Incoming')
+                                            bg-success
+                                          @elseif($insproduct->insproduct_status == 'Outgoing')
+                                            bg-danger
+                                          @else
+                                            bg-info
+                                          @endif">
+                                          <span class="status-text
+                                            @if($insproduct->insproduct_status == 'Incoming')
+                                              text-white
+                                            @elseif($insproduct->insproduct_status == 'Outgoing')
+                                              text-white
+                                            @else($insproduct->insproduct_status == 'Workshop')
+                                              text-white
+                                            @endif">
+                                            @if($insproduct->insproduct_status == 'Incoming')
+                                              Incoming
+                                            @elseif($insproduct->insproduct_status == 'Outgoing')
+                                              Outgoing
+                                            @else
+                                              Workshop
+                                            @endif
+                                          </span>
+                                        </div>
+                                      </td>                
+                                    {{-- <td>{{ $insproduct->insproduct_assetID }}</td> --}}
                                     <td>{{ $insproduct->insproduct_newassetID }}</td>
                                     <td>{{ $insproduct->insproduct_instype }}</td>
                                     <td>{{ $insproduct->insproduct_insbrand }}</td>
                                     {{-- <td>{{ $insproduct->insproduct_serial }}</td> --}}
-                                    <td>{{ $insproduct->insproduct_transfer }}</td>
+                                    {{-- <td>{{ $insproduct->insproduct_transfer }}</td>
                                     <td>{{ $insproduct->insproduct_reser }}</td>
                                     <td>{{ $insproduct->insproduct_origin }}</td>
                                     <td>{{ $insproduct->insproduct_sdvin }}</td>
@@ -155,7 +183,7 @@
                                     <td>{{ $insproduct->insproduct_dateoffshore }}</td>
                                     <td>{{ $insproduct->insproduct_tfoffshore }}</td>
                                     <td>{{ $insproduct->insproduct_curloc }}</td>
-                                    <td>{{ $insproduct->insproduct_targetpdn }}</td>
+                                    <td>{{ $insproduct->insproduct_targetpdn }}</td> --}}
                                     <td>{{ $insproduct->insproduct_stockin }}</td>
                                     <td>
                                         @if($insproduct->insproduct_docin)
@@ -174,15 +202,15 @@
                                     </td>
 
                                     <td>{{ $insproduct->insproduct_stockqty }}</td>
-                                    <td>{{ $insproduct->insproduct_uom }}</td>
+                                    {{-- <td>{{ $insproduct->insproduct_uom }}</td>
                                     <td>{{ $insproduct->insproduct_csrelease }}</td>
-                                    <td>{{ $insproduct->insproduct_csnumber }}</td>
+                                    <td>{{ $insproduct->insproduct_csnumber }}</td> --}}
                                     <td>{{ $insproduct->insproduct_cenumber }}</td>
                                     <td>{{ $insproduct->insproduct_ronumber }}</td>
-                                    <td>{{ $insproduct->insproduct_startdate }}</td>
+                                    {{-- <td>{{ $insproduct->insproduct_startdate }}</td>
                                     <td>{{ $insproduct->insproduct_enddate }}</td>
                                     <td>{{ $insproduct->insproduct_price }}</td>
-                                    <td>{{ $insproduct->insproduct_remark }}</td>
+                                    <td>{{ $insproduct->insproduct_remark }}</td> --}}
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('insproducts.show', $insproduct->id) }}" class="btn btn-outline-success btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
