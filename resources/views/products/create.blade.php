@@ -83,6 +83,24 @@
                     <div class="card-body">
                         <!-- Form Row -->
                         <div class="row gx-3 mb-3">
+                            <!-- Form Group (status) -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="product_status" >Status</label>
+                                    <select class="form-control form-control-solid @error('product_status') is-invalid @enderror" id="product_status" name="product_status" status="text" placeholder="" value="{{ old('product_status') }}" autocomplete="off"/>
+                                    <option selected="" disabled="">Select a status:</option>
+                                    <option value="" {{ old('product_status') === null ? 'selected' : '' }}>N/A</option>
+                                        <option>Incoming</option>
+                                        <option>Outgoing</option>
+                                        <option>At Workshop</option>
+                                    </select>
+                                    @error('product_status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>  
                             <!-- Form Group (product ID) -->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="product_assetID">Old ID</label>
@@ -562,19 +580,9 @@
                                 </div>
                                 @enderror
                             </div>
-                            <!-- Form Group (product Current Location) -->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="product_curloc">Current Location</label>
-                                <input class="form-control form-control-solid @error('product_curloc') is-invalid @enderror" id="product_curloc" name="product_curloc" type="text" placeholder="" value="{{ old('product_curloc') }}" autocomplete="off"/>
-                                @error('product_curloc')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
                             <!-- Form Group (stockIn) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="product_stockin">Stock In<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="product_stockin">Stock In</label>
                                 <input class="form-control form-control-solid @error('product_stockin') is-invalid @enderror" id="product_stockin" name="product_stockin" type="text" placeholder="" value="{{ old('product_stockin') }}" autocomplete="off" />
                                 @error('product_stockin')
                                 <div class="invalid-feedback">
@@ -608,7 +616,7 @@
                             </div>
                             <!-- Form Group (stock Quality (in-out) ) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="product_stockqty">Stock Quality<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="product_stockqty">Stock Quality</label>
                                 <input class="form-control form-control-solid @error('product_stockqty') is-invalid @enderror" id="product_stockqty" name="product_stockqty" type="text" placeholder="" value="{{ old('product_stockqty') }}" autocomplete="off" />
                                 @error('product_stockqty')
                                 <div class="invalid-feedback">
@@ -628,6 +636,16 @@
                                     document.getElementById('product_stockin').addEventListener('change', calculateStockQty);
                                     document.getElementById('product_stockout').addEventListener('change', calculateStockQty);
                                 </script>                                
+                            </div>
+                             <!-- Form Group (product Current Location) -->
+                             <div class="col-md-6">
+                                <label class="small mb-1" for="product_curloc">Current Location</label>
+                                <input class="form-control form-control-solid @error('product_curloc') is-invalid @enderror" id="product_curloc" name="product_curloc" type="text" placeholder="" value="{{ old('product_curloc') }}" autocomplete="off"/>
+                                @error('product_curloc')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <!-- Form Group (type of product UOM) -->
                             <div class="col-md-6">
