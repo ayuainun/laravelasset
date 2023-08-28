@@ -92,10 +92,11 @@
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Image</th>
-                                    <th scope="col">@sortablelink('bulkproduct_assetID', 'Old ID')</th>
-                                    <th scope="col">@sortablelink('bulkproduct_newassetID', 'Asset ID')</th>
+                                    <th scope="col">@sortablelink('bulkproduct_status', 'Status')</th>
+                                    {{-- <th scope="col">@sortablelink('bulkproduct_assetID', 'Old ID')</th> --}}
+                                    <th scope="col">@sortablelink('bulkproduct_newassetID', 'New ID')</th>
                                     <th scope="col">@sortablelink('bulkproduct_bulktype', 'Bulk Material Type')</th>
-                                    <th scope="col">@sortablelink('bulkproduct_datein', 'Date In')</th>
+                                    {{-- <th scope="col">@sortablelink('bulkproduct_datein', 'Date In')</th>
                                     <th scope="col">@sortablelink('bulkproduct_transfer', 'Material Transfer')</th>
                                     <th scope="col">@sortablelink('bulkproduct_reser', 'Reservation Number')</th>
                                     <th scope="col">@sortablelink('bulkproduct_origin', 'Ex Station')</th>
@@ -107,22 +108,22 @@
                                     <th scope="col">@sortablelink('bulkproduct_dateout', 'Date Out')</th>
                                     <th scope="col">@sortablelink('bulkproduct_dateoffshore', 'Date to offshore')</th>
                                     <th scope="col">@sortablelink('bulkproduct_tfoffshore', 'Material transfer to offshore')</th>
-                                    <th scope="col">@sortablelink('bulkproduct_curloc', 'Current Location')</th>
+                                    <th scope="col">@sortablelink('bulkproduct_curloc', 'Current Location')</th> --}}
                                     <th scope="col">@sortablelink('bulkproduct_stockin', 'Stock In')</th>
                                     <th scope="col">@sortablelink('bulkproduct_docin', 'Dok Stock In')</th>
                                     <th scope="col">@sortablelink('bulkproduct_stockout', 'Stock Out')</th>
                                     <th scope="col">@sortablelink('bulkproduct_docout', 'Dok Stock Out')</th>
                                     <th scope="col">@sortablelink('bulkproduct_stockqty', 'Stock Quantity')</th>
-                                    <th scope="col">@sortablelink('bulkproduct_uom', 'UOM')</th>
+                                    {{-- <th scope="col">@sortablelink('bulkproduct_uom', 'UOM')</th>
                                     <th scope="col">@sortablelink('bulkproduct_targetpdn', 'Target PDN')</th>
                                     <th scope="col">@sortablelink('bulkproduct_csrelease', 'CS Release')</th>
-                                    <th scope="col">@sortablelink('bulkproduct_csnumber', 'CS Number')</th>
+                                    <th scope="col">@sortablelink('bulkproduct_csnumber', 'CS Number')</th> --}}
                                     <th scope="col">@sortablelink('bulkproduct_cenumber', 'CE Number')</th>
                                     <th scope="col">@sortablelink('bulkproduct_ronumber', 'RO Number')</th>
-                                    <th scope="col">@sortablelink('bulkproduct_startdate', 'Start Date')</th>
+                                    {{-- <th scope="col">@sortablelink('bulkproduct_startdate', 'Start Date')</th>
                                     <th scope="col">@sortablelink('bulkproduct_enddate', 'End Date')</th>
                                     <th scope="col">@sortablelink('bulkproduct_price', 'Price Repair')</th>
-                                    <th scope="col">@sortablelink('bulkproduct_remark', 'REMARK')</th>
+                                    <th scope="col">@sortablelink('bulkproduct_remark', 'REMARK')</th> --}}
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -135,10 +136,37 @@
                                             <img class="img-fluid" src="{{ $bulkproduct->bulkproduct_image ? asset($bulkproduct->bulkproduct_image) : asset('assets/img/products/default.webp') }}">
                                         </div>
                                     </td>
-                                    <td>{{ $bulkproduct->bulkproduct_assetID }}</td>
+                                    <td>
+                                        <div class="status-box
+                                          @if($bulkproduct->bulkproduct_status == 'Incoming')
+                                            bg-success
+                                          @elseif($bulkproduct->bulkproduct_status == 'Outgoing')
+                                            bg-danger
+                                          @else
+                                            bg-info
+                                          @endif">
+                                          <span class="status-text
+                                            @if($bulkproduct->bulkproduct_status == 'Incoming')
+                                              text-white
+                                            @elseif($bulkproduct->bulkproduct_status == 'Outgoing')
+                                              text-white
+                                            @else($bulkproduct->bulkproduct_status == 'Workshop')
+                                              text-white
+                                            @endif">
+                                            @if($bulkproduct->bulkproduct_status == 'Incoming')
+                                              Incoming
+                                            @elseif($bulkproduct->bulkproduct_status == 'Outgoing')
+                                              Outgoing
+                                            @else
+                                              Workshop
+                                            @endif
+                                          </span>
+                                        </div>
+                                      </td>                     
+                                    {{-- <td>{{ $bulkproduct->bulkproduct_assetID }}</td> --}}
                                     <td>{{ $bulkproduct->bulkproduct_newassetID }}</td>
                                     <td>{{ $bulkproduct->bulkproduct_bulktype }}</td>
-                                    <td>{{ $bulkproduct->bulkproduct_datein }}</td>
+                                    {{-- <td>{{ $bulkproduct->bulkproduct_datein }}</td>
                                     <td>{{ $bulkproduct->bulkproduct_transfer }}</td>
                                     <td>{{ $bulkproduct->bulkproduct_reser }}</td>
                                     <td>{{ $bulkproduct->bulkproduct_origin }}</td>
@@ -150,7 +178,7 @@
                                     <td>{{ $bulkproduct->bulkproduct_dateout }}</td>
                                     <td>{{ $bulkproduct->bulkproduct_dateoffshore }}</td>
                                     <td>{{ $bulkproduct->bulkproduct_tfoffshore }}</td>
-                                    <td>{{ $bulkproduct->bulkproduct_curloc }}</td>
+                                    <td>{{ $bulkproduct->bulkproduct_curloc }}</td> --}}
                                     <td>{{ $bulkproduct->bulkproduct_stockin }}</td>
                                     <td>
                                         @if($bulkproduct->bulkproduct_docin)
@@ -169,16 +197,16 @@
                                     </td>
 
                                     <td>{{ $bulkproduct->bulkproduct_stockqty }}</td>
-                                    <td>{{ $bulkproduct->bulkproduct_uom }}</td>
+                                    {{-- <td>{{ $bulkproduct->bulkproduct_uom }}</td>
                                     <td>{{ $bulkproduct->bulkproduct_targetpdn }}</td>
                                     <td>{{ $bulkproduct->bulkproduct_csrelease }}</td>
-                                    <td>{{ $bulkproduct->bulkproduct_csnumber }}</td>
+                                    <td>{{ $bulkproduct->bulkproduct_csnumber }}</td> --}}
                                     <td>{{ $bulkproduct->bulkproduct_cenumber }}</td>
                                     <td>{{ $bulkproduct->bulkproduct_ronumber }}</td>
-                                    <td>{{ $bulkproduct->bulkproduct_startdate }}</td>
+                                    {{-- <td>{{ $bulkproduct->bulkproduct_startdate }}</td>
                                     <td>{{ $bulkproduct->bulkproduct_enddate }}</td>
                                     <td>{{ $bulkproduct->bulkproduct_price }}</td>
-                                    <td>{{ $bulkproduct->bulkproduct_remark }}</td>
+                                    <td>{{ $bulkproduct->bulkproduct_remark }}</td> --}}
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('bulkproducts.show', $bulkproduct->id) }}" class="btn btn-outline-success btn-sm mx-1"><i class="fa-solid fa-eye"></i></a>
