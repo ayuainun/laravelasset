@@ -3,25 +3,6 @@
 use App\Http\Controllers\DefaultController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UnitController;
-use App\Http\Controllers\EndController;
-use App\Http\Controllers\SizeController;
-use App\Http\Controllers\RatingController;
-use App\Http\Controllers\ValvebrandController;
-use App\Http\Controllers\CondiController;
-use App\Http\Controllers\ActbrandController;
-use App\Http\Controllers\ActtypeController;
-use App\Http\Controllers\ActsizeController;
-use App\Http\Controllers\FailController;
-use App\Http\Controllers\ActcondController;
-use App\Http\Controllers\PosbrandController;
-use App\Http\Controllers\PosmodelController;
-use App\Http\Controllers\PoscondController;
-use App\Http\Controllers\UomController;
-use App\Http\Controllers\InstypeController;
-use App\Http\Controllers\InsbrandController;
-use App\Http\Controllers\AutobrandController;
-use App\Http\Controllers\BulktypeController;
 use App\Http\Controllers\InsproductController;
 use App\Http\Controllers\AutoproductController;
 use App\Http\Controllers\BulkproductController;
@@ -33,7 +14,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UnreproductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+// use Barryvdh\DomPDF\Facade as PDF;
+// use Illuminate\Http\Request;
+// use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,28 +43,30 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('/units', UnitController::class);
-    Route::resource('/ends', EndController::class);
-    Route::resource('/sizes', SizeController::class);
-    Route::resource('/ratings', RatingController::class);
-    Route::resource('/valvebrands', ValvebrandController::class);
-    Route::resource('/condis', CondiController::class);
-    Route::resource('/actbrands', ActbrandController::class);
-    Route::resource('/acttypes', ActtypeController::class);
-    Route::resource('/actsizes', ActsizeController::class);
-    Route::resource('/fails', FailController::class);
-    Route::resource('/actconds', ActcondController::class);
-    Route::resource('/posbrands', PosbrandController::class);
-    Route::resource('/posmodels', PosmodelController::class);
-    Route::resource('/posconds', PoscondController::class);
-    Route::resource('/uoms', UomController::class);
-    Route::resource('/instypes', InstypeController::class);
-    Route::resource('/insbrands', InsbrandController::class);
-    Route::resource('/autobrands', AutobrandController::class);
-    Route::resource('/autobrands', AutobrandController::class);
-    Route::resource('/bulktypes', BulktypeController::class);
-
     Route::get('/fetch-type-options', 'ProductController@fetchTypeOptions')->name('fetchTypeOptions');
+
+    // // Route PDF
+    // Route::get('/download-pdf', function (Request $request) {
+    //     $pdf = PDF::loadView('products.show');
+        
+    //     // You can customize the PDF filename
+    //     $filename = 'document.pdf';
+        
+    //     return $pdf->download($filename);
+    // })->name('download-pdf');
+    
+    // Route::get('/download-show-pdf', 'ProductController@downloadpdf')->name('show.pdf');
+    // Route::get('/products/pdf/{id}', 'ProductController@generatePdf')->name('products.pdf');
+    // Route::get('/autoproducts/{id}/pdf', 'AutoproductController@generatePdf')->name('autoproducts.pdf');
+    // Route::get('/autorepairproducts/{id}/pdf', 'AutorepairproductController@generatePdf')->name('autorepairproducts.pdf');
+    // Route::get('/bulkproducts/{id}/pdf', 'BulkproductController@generatePdf')->name('bulkproducts.pdf');
+    // Route::get('/insproducts/{id}/pdf', 'InsproductController@generatePdf')->name('insproducts.pdf');
+    // Route::get('/insrepairproducts/{id}/pdf', 'InsrepairproductController@generatePdf')->name('insrepairproducts.pdf');
+    // Route::get('/partsproducts/{id}/pdf', 'PartsproductController@generatePdf')->name('partsproducts.pdf');
+    // Route::get('/repairproducts/{id}/pdf', 'RepairproductController@generatePdf')->name('repairproducts.pdf');
+    // Route::get('/unreproducts/{id}/pdf', 'UnreproductController@generatePdf')->name('unreproducts.pdf');
+    // Route::get('/download-show-pdf', [ProductController::class, 'downloadpdf'])->name('show.pdf');
+    Route::get('/download-pdf/{id}', [ProductController::class, 'download'])->name('download-pdf');
 
     // // Route Products
     Route::get('/products/export', [ProductController::class, 'export'])->name('products.export');
