@@ -13,6 +13,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Support\Facades\View;
 
 class BulkproductController extends Controller
 {
@@ -62,6 +65,7 @@ class BulkproductController extends Controller
 
         $rules = [
             'bulkproduct_image' => 'image|file|max:2048',
+            'bulkproduct_status' => 'nullable|string',
             'bulkproduct_assetID' => 'nullable|string',
             'bulkproduct_newassetID' => 'nullable|string',
             'bulkproduct_bulktype' => 'nullable|string',
@@ -190,6 +194,7 @@ class BulkproductController extends Controller
     {
         $rules = [
             'bulkproduct_image' => 'image|file|max:2048',
+            'bulkproduct_status' => 'nullable|string',
             'bulkproduct_assetID' => 'nullable|string',
             'bulkproduct_newassetID' => 'nullable|string',
             'bulkproduct_bulktype' => 'nullable|string',
@@ -358,7 +363,7 @@ class BulkproductController extends Controller
             $row_limit    = $sheet->getHighestDataRow();
             $column_limit = $sheet->getHighestDataColumn();
             $row_range    = range( 2, $row_limit );
-            $column_range = range( 'AI', $column_limit );
+            $column_range = range( 'AJ', $column_limit );
             $startcount = 2;
             $data = array();
             foreach ( $row_range as $row ) {
@@ -396,11 +401,13 @@ class BulkproductController extends Controller
                     'bulkproduct_remark' =>$sheet->getCell( 'AE' . $row )->getValue(),
                     'bulkproduct_image' =>$sheet->getCell( 'AF' . $row )->getValue(),
                     'bulkproduct_code' =>$sheet->getCell( 'AG' . $row )->getValue(),
+                    'bulkproduct_status' =>$sheet->getCell( 'AH' . $row )->getValue(),
+
                 ];
                 $startcount++;
             }
 
-            Bulkproduct::bulkert($data);
+            Bulkproduct::insert($data);
 
         } catch (Exception $e) {
             // $error_code = $e->errorInfo[1];
@@ -417,7 +424,7 @@ class BulkproductController extends Controller
 
         $bulkproduct_array [] = array(
             'Old ID',
-            'Asset ID',
+            'New ID',
             'Bulk Material Type',
             // 'Serial Number',
             'Material Transfer',
@@ -450,6 +457,7 @@ class BulkproductController extends Controller
             'REMARK',
             'Product Image',
             'Product code',
+            'Status',
         );
 
         foreach($bulkproducts as $bulkproduct)
@@ -489,6 +497,7 @@ class BulkproductController extends Controller
                 'REMARK' => $bulkproduct->bulkproduct_remark,
                 'Product Image' => $bulkproduct->bulkproduct_image,
                 'Product Code' => $bulkproduct->bulkproduct_code,
+                'Status' => $bulkproduct->bulkproduct_status,
             );
         }
 
